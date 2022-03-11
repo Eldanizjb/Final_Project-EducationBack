@@ -1,0 +1,171 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="collapse" id="ui-basic">
+    <ul class="nav flex-column sub-menu">
+        <li class="nav-item">
+            <a class="nav-link" asp-area="admin" asp-controller="Home" asp-action="Index">
+                <i class="mdi mdi-view-headline menu-icon"></i>
+                <span class="menu-title">Home</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-area="admin" asp-controller="Course" asp-action="Index">
+                <i class="mdi mdi-chart-pie menu-icon"></i>
+                <span class="menu-title">Courses</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-area="admin" asp-controller="Blog" asp-action="Index">
+                <i class="mdi mdi-grid-large menu-icon"></i>
+                <span class="menu-title">Blogs</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-area="admin" asp-controller="Event" asp-action="Index">
+                <i class="mdi mdi-view-headline menu-icon"></i>
+                <span class="menu-title">Events</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-area="admin" asp-controller="Instructor" asp-action="Index">
+                <i class="mdi mdi-chart-pie menu-icon"></i>
+                <span class="menu-title">Instructors</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-area="admin" asp-controller="About" asp-action="Index">
+                <i class="mdi mdi-grid-large menu-icon"></i>
+                <span class="menu-title">About</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-area="admin" asp-controller="Faq" asp-action="Index">
+                <i class="mdi mdi-view-headline menu-icon"></i>
+                <span class="menu-title">FAQs</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-area="admin" asp-controller="Pricing" asp-action="Index">
+                <i class="mdi mdi-chart-pie menu-icon"></i>
+                <span class="menu-title">Pricing</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-area="admin" asp-controller="Students" asp-action="Index">
+                <i class="mdi mdi-grid-large menu-icon"></i>
+                <span class="menu-title">Students</span>
+            </a>
+        </li>
+        <li class="nav-item">
+                <a class="nav-link" asp-area="admin" asp-controller="Setting" asp-action="Index">
+                    <i class="mdi mdi-view-headline menu-icon"></i>
+                    <span class="menu-title">Settings</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-area="admin" asp-controller="Banner" asp-action="Index">
+                    <i class="mdi mdi-view-headline menu-icon"></i>
+                    <span class="menu-title">Banners</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-area="admin" asp-controller="Advice" asp-action="Index">
+                    <i class="mdi mdi-view-headline menu-icon"></i>
+                    <span class="menu-title">Advice</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-area="admin" asp-controller="Feature" asp-action="Index">
+                    <i class="mdi mdi-view-headline menu-icon"></i>
+                    <span class="menu-title">Feature</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-area="admin" asp-controller="Feedback" asp-action="Index">
+                    <i class="mdi mdi-view-headline menu-icon"></i>
+                    <span class="menu-title">Feedback</span>
+
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-area="admin" asp-controller="Partners" asp-action="Index">
+                    <i class="mdi mdi-view-headline menu-icon"></i>
+                    <span class="menu-title">Partners</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-area="admin" asp-controller="Programs" asp-action="Index">
+                    <i class="mdi mdi-view-headline menu-icon"></i>
+                    <span class="menu-title">Programs</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-area="admin" asp-controller="CourseCategory" asp-action="Index">
+                    <i class="mdi mdi-view-headline menu-icon"></i>
+                    <span class="menu-title">CourseCategory</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-area="admin" asp-controller="BlogCategory" asp-action="Index">
+                    <i class="mdi mdi-view-headline menu-icon"></i>
+                    <span class="menu-title">BlogCategory</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-area="admin" asp-controller="Tag" asp-action="Index">
+                    <i class="mdi mdi-view-headline menu-icon"></i>
+                    <span class="menu-title">BlogTags</span>
+                </a>
+            </li>
+      
+            <li class="nav-item">
+                <a class="nav-link" asp-area="admin" asp-controller="Social" asp-action="Index">
+                    <i class="mdi mdi-view-headline menu-icon"></i>
+                    <span class="menu-title">Sosial</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-area="admin" asp-controller="InstructorSocial" asp-action="Index">
+                    <i class="mdi mdi-view-headline menu-icon"></i>
+                    <span class="menu-title">InstructorSocial</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-area="admin" asp-controller="Message" asp-action="Index">
+                    <i class="mdi mdi-view-headline menu-icon"></i>
+                    <span class="menu-title">Message</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-area="admin" asp-controller="Comment" asp-action="Index">
+                    <i class="mdi mdi-view-headline menu-icon"></i>
+                    <span class="menu-title">Comment</span>
+
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-area="admin" asp-controller="Commenter" asp-action="Index">
+                    <i class="mdi mdi-view-headline menu-icon"></i>
+                    <span class="menu-title">Commenter</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-area="admin" asp-controller="Subscribe" asp-action="Index">
+                    <i class="mdi mdi-view-headline menu-icon"></i>
+                    <span class="menu-title">Subscribe</span>
+                </a>
+            </li>
+        
+            <li class="nav-item"> <a class="nav-link" asp-area="admin" asp-controller="Account" asp-action="Users"> Users </a></li>
+            <li class="nav-item"> <a class="nav-link" asp-area="admin" asp-controller="Account" asp-action="Login"> Login </a></li>
+            <li class="nav-item"> <a class="nav-link" asp-area="admin" asp-controller="Account" asp-action="Register"> Register </a></li>
+            <li class="nav-item"> <a class="nav-link" asp-area="admin" asp-controller="Account" asp-action="Lockscreen"> Lockscreen </a></li>
+            <li class="nav-item"> <a class="nav-link" asp-area="admin" asp-controller="Account" asp-action="Roles"> Roles </a></li>
+            <li class="nav-item"> <a class="nav-link" asp-area="admin" asp-controller="Account" asp-action="RoleCreate"> RoleCreate</a></li>
+     </ul>
+</div>

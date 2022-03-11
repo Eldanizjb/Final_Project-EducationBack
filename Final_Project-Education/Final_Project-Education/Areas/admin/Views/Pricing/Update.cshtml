@@ -1,0 +1,80 @@
+﻿@model Pricing
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Areas/admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<!-- partial -->
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="card-title">Update Pricing Page</h1>
+                        <form class="forms-sample" asp-area="admin" asp-controller="Pricing" asp-action="Update" method="post" enctype="multipart/form-data">
+                            <div asp-validation-summary="All" class="text-danger"></div>
+
+                            <div class="form-group">
+                                <label asp-for="@Model.Title" class="form-label">Title</label>
+                                <input class="form-control" asp-for="@Model.Title">
+                                <span asp-validation-for="@Model.Title" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.SupTitle" class="form-label">SupTitle</label>
+                                <input class="form-control" asp-for="@Model.SupTitle">
+                                <span asp-validation-for="@Model.SupTitle" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.Price" class="form-label">Price</label>
+                                <input class="form-control" asp-for="@Model.Price">
+                                <span asp-validation-for="@Model.Price" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.Period" class="form-label">Period</label>
+                                <input class="form-control" asp-for="@Model.Period">
+                                <span asp-validation-for="@Model.Period" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.Metod" class="form-label">Metod</label>
+                                <input class="form-control" asp-for="@Model.Metod">
+                                <span asp-validation-for="@Model.Metod" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.Place" class="form-label">Place</label>
+                                <input class="form-control" asp-for="@Model.Place">
+                                <span asp-validation-for="@Model.Place" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.MentorTime" class="form-label">MentorTime</label>
+                                <input class="form-control" asp-for="@Model.MentorTime">
+                                <span asp-validation-for="@Model.MentorTime" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.Type" class="form-label">Type</label>
+                                <input class="form-control" asp-for="@Model.Type">
+                                <span asp-validation-for="@Model.Type" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.Support" class="form-label">Support</label>
+                                <input class="form-control" asp-for="@Model.Support">
+                                <span asp-validation-for="@Model.Support" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.CreatedDate" class="form-label">CreatedDate</label>
+                                <input class="form-control" asp-for="@Model.CreatedDate">
+                                <span asp-validation-for="@Model.CreatedDate" class="text-danger"></span>
+                            </div>
+                            <input class="form-control" type="hidden" asp-for="@Model.Id">
+                            <button type="submit" class="btn btn-primary mr-2">Update</button>
+                            <a asp-area="admin" asp-controller="Pricing" asp-action="Index" class="btn btn-light">Back to list</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- main-panel ends -->
+

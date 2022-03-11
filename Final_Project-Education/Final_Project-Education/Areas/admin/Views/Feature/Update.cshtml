@@ -1,0 +1,55 @@
+﻿@model Feature
+
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Areas/admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<!-- partial -->
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="card-title">Update Feature Page</h1>
+                        <form class="forms-sample" asp-area="admin" asp-controller="Feature" asp-action="Update" method="post" enctype="multipart/form-data">
+                            <div asp-validation-summary="All" class="text-danger"></div>
+                            <div class="form-group">
+                                <label asp-for="@Model.ImageFile" class="form-label">Image</label>
+                                <img src="~/Uploads/@Model.Image" alt="Alternate Text" width="100" height="100" />
+                                <input class="form-control" asp-for="@Model.ImageFile">
+                                <span asp-validation-for="@Model.ImageFile" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.Title" class="form-label">Title</label>
+                                <input class="form-control" asp-for="@Model.Title">
+                                <span asp-validation-for="@Model.Title" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.SubTitle" class="form-label">SubTitle</label>
+                                <input class="form-control" asp-for="@Model.SubTitle">
+                                <span asp-validation-for="@Model.SubTitle" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.CreatedDate" class="form-label">CreatedDate</label>
+                                <input class="form-control" asp-for="@Model.CreatedDate">
+                                <span asp-validation-for="@Model.CreatedDate" class="text-danger"></span>
+                            </div>
+
+                            <input class="form-control" type="hidden" asp-for="@Model.Id">
+                            <input type="hidden" asp-for="@Model.CreatedDate" />
+                            <input type="hidden" asp-for="@Model.Image" />
+                            <button type="submit" class="btn btn-primary mr-2">Update</button>
+                            <a asp-area="admin" asp-controller="Feature" asp-action="Index" class="btn btn-light">Back to list</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- main-panel ends -->
+
+

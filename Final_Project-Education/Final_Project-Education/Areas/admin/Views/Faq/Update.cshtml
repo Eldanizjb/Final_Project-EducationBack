@@ -1,0 +1,37 @@
+﻿@model FAQ
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Areas/admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="card-title">Update Faq Page</h1>
+
+                        <form class="forms-sample" asp-area="admin" asp-controller="Faq" asp-action="Update" method="post" enctype="multipart/form-data">
+                            <div asp-validation-summary="All" class="text-danger"></div>
+                            <div class="form-group">
+                                <label asp-for="@Model.Question" class="form-label">Question</label>
+                                <input class="form-control" asp-for="@Model.Question">
+                                <span asp-validation-for="@Model.Question" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.Answer" class="form-label">Answer</label>
+                                <input class="form-control" asp-for="@Model.Answer">
+                                <span asp-validation-for="@Model.Answer" class="text-danger"></span>
+                            </div>
+                            <input class="form-control" type="hidden" asp-for="@Model.Id">
+                            <button type="submit" class="btn btn-primary mr-2">Update</button>
+                            <a asp-area="admin" asp-controller="Faq" asp-action="Index" class="btn btn-light">Back to list</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

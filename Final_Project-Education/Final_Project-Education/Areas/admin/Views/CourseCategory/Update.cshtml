@@ -1,0 +1,54 @@
+﻿@model CourseCategory
+
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Areas/admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="card-title">Update CourseCategory Page</h1>
+
+                        <form class="forms-sample" asp-area="admin" asp-controller="CourseCategory" asp-action="Update" method="post" enctype="multipart/form-data">
+                            <div asp-validation-summary="All" class="text-danger"></div>
+                            <div class="form-group">
+                                <label asp-for="@Model.ImageFile" class="form-label">Image</label>
+                                <input class="form-control" asp-for="@Model.ImageFile">
+                                <span asp-validation-for="@Model.ImageFile" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.ImageBackFile" class="form-label">Image</label>
+                                <input class="form-control" asp-for="@Model.ImageBackFile">
+                                <span asp-validation-for="@Model.ImageBackFile" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.Name" class="form-label">Name</label>
+                                <input class="form-control" asp-for="@Model.Name">
+                                <span asp-validation-for="@Model.Name" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.Title" class="form-label">Title</label>
+                                <input class="form-control" asp-for="@Model.Title">
+                                <span asp-validation-for="@Model.Title" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.SupTitle" class="form-label">SupTitle</label>
+                                <input class="form-control" asp-for="@Model.SupTitle">
+                                <span asp-validation-for="@Model.SupTitle" class="text-danger"></span>
+                            </div>
+
+                            <input class="form-control" type="hidden" asp-for="@Model.Id">
+                            <button type="submit" class="btn btn-primary mr-2">Update</button>
+                            <a asp-area="admin" asp-controller="CourseCategory" asp-action="Index" class="btn btn-light">Back to list</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

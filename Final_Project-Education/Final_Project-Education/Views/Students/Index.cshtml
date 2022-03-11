@@ -1,0 +1,112 @@
+﻿@model VmStudents
+
+@{
+    ViewData["Title"] = "Student Index";
+}
+
+
+<!--!--!--section Intro--!--!--!-->
+<partial name="_BannerPartial" model="Model.Banner" />
+<!--!--!--section categories--!--!--!-->
+<section id="breadcrum" class="section-breadcrum">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4"></div>
+            <div class="col-lg-4 d-flex flex-wrap-nowrap justify-content-center">
+                <div class="banner-breadcrum ">
+                    <ul class="d-flex justify-content-center">
+                        <li><a asp-area="" asp-controller="Home" asp-action="Index" title="Home">Home</a></li>
+                        <li><i class="fa fa-angle-right" aria-hidden="true"></i></li>
+                        <li><a asp-area="" asp-controller="Course" asp-action="Index" title="Courses">Kurslar</a></li>
+                        <li><i class="fa fa-angle-right" aria-hidden="true"></i></li>
+                        <li><a asp-controller="Students" asp-action="Index" title="Student List">Məzunlar</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-4"></div>
+        </div>
+    </div>
+</section>
+<section>
+    <div class="container">
+        <div class="row ">
+            <div class="sidebar-search mb-4">
+                <div class="sidebar-form">
+                    <form method="get" asp-controller="Students" asp-action="index">
+                        <div class="form-group search-group">
+                            <input type="text" asp-for="@Model.Search.searchData" value="" placeholder="Search..." required>
+                            <input asp-for="@Model.Search.page" hidden />
+                            <button type="submit"><span class="icon fa fa-search"></span></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-lg-12 mt-3">
+                <table class="table table-primary tables-scroll ">
+                    <thead>
+                        <tr>
+                            <th scope="col">Num</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Surname</th>
+                            <th scope="col">Phone</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Course</th>
+                            <th scope="col">Graduate</th>
+                            <th scope="col">CreatedDate</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{ int i = 0;
+                            foreach (var item in Model.Students)
+                            {
+                                i++;
+                                <tr>
+                                    <th scope="row">@i</th>
+                                    <td>@item.Name</td>
+                                    <td>@item.Surname</td>
+                                    <td>@item.Phone</td>
+                                    <td>@item.Email</td>
+                                    <td>@item.Course.Title</td>
+                                    <td>@item.Graduate</td>
+                                    <td>@item.CreatedDate</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+                <div class="pagination ">
+                    <div class="row">
+                        <div class="col-12 d-flex justify-content-center align-items-center">
+                            <ul class="pagination-list mt-3 justify-content-center pagination-style">
+                                <li class="pagination-item @(ViewBag.Page==1?"disabled":"")">
+                                    <a asp-controller="Students" asp-action="index" asp-route-page="@(ViewBag.Page-1) class="pagination-item-link">
+                                        <i class="fa fa-angle-left"
+                                           aria-hidden="true"></i>
+                                    </a>
+                                </li>
+                                @for (int t = 0; t < ViewBag.PageCount; ++t)
+                                {
+
+                                    <li class="pagination-item  @(ViewBag.Page==(t+1)?"active":"")">
+                                        <a class="pagination-item-link" asp-controller="Students" asp-action="index" asp-route-page="@(t+1)">@(t+1)</a>
+                                    </li>
+
+                                }
+                                <li class="pagination-item  @(ViewBag.Page==ViewBag.PageCount?"disabled":"")">
+                                    <a asp-controller="Students" asp-action="index" asp-route-page="@(ViewBag.Page+1)" class="pagination-item-link">
+                                        <i class="fa fa-angle-right"
+                                           aria-hidden="true"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+

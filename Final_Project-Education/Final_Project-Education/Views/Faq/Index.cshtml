@@ -1,0 +1,138 @@
+﻿@model VmFaq
+
+@{
+    ViewData["Title"] = "Faq Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+
+<!--!--!--section Intro--!--!--!-->
+<partial name="_BannerPartial" model="Model.Banner" />
+<!--!--!--section categories--!--!--!-->
+<section id="breadcrum" class="section-breadcrum pt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4"></div>
+            <div class="col-lg-4 d-flex flex-wrap-nowrap justify-content-center">
+                <div class="banner-breadcrum ">
+                    <ul class="d-flex justify-content-center">
+                        <li><a asp-area="" asp-controller="Home" asp-action="Index" title="Home">Əsas səhifə</a></li>
+                        <li><i class="fa fa-angle-right" aria-hidden="true"></i></li>
+                        <li>
+                            <a asp-controller="faq" asp-action="index" title="Frequently Asked Questions">Tez-tez verilən suallar</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-4"></div>
+        </div>
+    </div>
+</section>
+
+<section id="Faq" class="section-faq">
+    <div class="container accordion" id="accordionExample">
+        <div id="accordion" class="row">
+            <div class="col-lg-12">
+                <h2 class="headerBlue"> Tez-tez verilən suallar</h2>
+                <h1 class="header"> Ən çox suallar</h1>
+            </div>
+            <div class="col-lg-6">
+                <div class="accordion-side accordion-left-section ">
+                    @{ for (int i = 0; i < Model.FAQs.Count; i++)
+                        {
+                            if (i % 2 == 1)
+                            {
+                            <div class="accordion-item">
+                                <h3 class="accordion-header" >
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" aria-expanded="true" >
+                                        @Model.FAQs[i].Question
+                                        <span class="icon"><i class="fa fa-angle-left" aria-hidden="false"></i></span>
+                                    </button>
+                                </h3>
+                                <div id="collapse" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        <p class="content">
+                                            @Model.FAQs[i].Answer
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                                } 
+                            }
+                        }
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="accordion-side accordion-left-section ">
+                    @{ for (int i = 0; i < Model.FAQs.Count; i++)
+                        {
+                            if (i % 2 == 1)
+                            {
+                                <div class="accordion-item">
+                                    <h3 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" aria-expanded="true">
+                                            @Model.FAQs[i].Question
+                                            <span class="icon"><i class="fa fa-angle-left" aria-hidden="false"></i></span>
+                                        </button>
+                                    </h3>
+                                    <div id="collapse" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            <p class="content">
+                                                @Model.FAQs[i].Answer
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--!--!--section testimonial--!--!--!-->
+@await Component.InvokeAsync("VcFeedback")
+<!--!--!--section contact--!--!--!-->
+<section id="contact" class="section-contact">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-12 contact-left-side">
+                <div class="contact-img" data-wow-delay=".4s">
+                    <a href="~/assets/images/testimoials/contact-us-img.png" download>
+                        <img src="~/assets/images/testimoials/contact-us-img.png " alt="contact-us-img">
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12  contact-right-side">
+                <h2 class="headerBlue">Qeydiyyatdan keçin</h2>
+                <h1 class="header">Suallarınıza cavab tapılmadısa bizimlə əlaqə saxlayın</h1>
+                <div class="contact-submit-form">
+                    <form id="message" class="footer-subscribe-form" asp-controller="contact" asp-action="Message" method="post" data-id="7">
+                        <div class="form-box">
+                            <input type="text" name="FullName" class="form-input" placeholder="Full Name"
+                                   required="">
+                        </div>
+                        <div class="form-box">
+                            <input name="EmailAddress" class="form-input" placeholder="email@gmail.com"
+                                   required="">
+                        </div>
+                        <div class="form-box">
+                            <input name="PhoneNo" class="form-input" placeholder="Phone No."
+                                   required="">
+                        </div>
+                        <div class="form-box">
+                            <textarea type="text" name="Content" placeholder="Message..."></textarea>
+                        </div>
+                        <div class="form-box">
+                            <button type="submit" id="btn-message" class="button btn-1" title="Message" value="message">QEYDİYYAT</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

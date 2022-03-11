@@ -1,0 +1,330 @@
+﻿@model VmInstructor
+
+@{
+    ViewData["Title"] = "Instructor Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<!--!--!--section Intro--!--!--!-->
+<partial name="_BannerPartial" model="Model.Banner" />
+<!--!--!--section categories--!--!--!-->
+<section id="breadcrum" class="section-breadcrum">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4"></div>
+            <div class="col-lg-4 d-flex flex-wrap-nowrap justify-content-center">
+                <div class="banner-breadcrum ">
+                    <ul class="d-flex justify-content-center">
+                        <li><a asp-area="" asp-controller="Home" asp-action="Index" title="Home">Home</a></li>
+                        <li><i class="fa fa-angle-right" aria-hidden="true"></i></li>
+                        <li><a asp-area="" asp-controller="Instructor" asp-action="Index" title="Instructor">Müəllimlər</a></li>
+                        <li><i class="fa fa-angle-right" aria-hidden="true"></i></li>
+                        <li><a asp-controller="instructor" asp-action="instructordetails" title="Instructor Detail">Ətraflı</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-4"></div>
+        </div>
+    </div>
+</section>
+<!--!--!--section courses lists--!--!--!-->
+<section id="instructor-page" class="instructor-detail pt-5 mt-4 bg-gradient-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 courses-all-tags">
+                <div class="courses-list-sorting">
+                    <div class="content-side">
+                        <!--Shop Single-->
+                        <div class="education-section">
+                            <!--Sort By-->
+                            <div class="instructor-detail-info-img-box">
+                                <div class="info-img-box-first"></div>
+                                <div class="instructor-detail-page-img wow fadeInUp  animated" data-wow-delay=".4s">
+                                    <img src="~/Uploads/@Model.InstructorDetails.MainImage"
+                                         alt="instructor">
+                                </div>
+                                <p class="info-img-box-second"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8 courses-list-boxs instructor-informations">
+                <div class="instructor-admin d-flex flex-column">
+                    <div class="d-flex">
+                        <div class="instructor-name">
+                            <h3 class="title">@Model.InstructorDetails.Name @Model.InstructorDetails.Surname</h3>
+                            <p class="content">@Model.InstructorDetails.Position</p>
+                        </div>
+                        <div class="stars" @("rating-box-" + Model.InstructorDetails.Id)>
+                            <form action="" id="RaitingStar">
+                                <input data-value="5" data-teacherId=@(Model.InstructorDetails.Id)
+                                       class="star myStar star-5" id="star-5" type="radio" name="star" value="1" />
+                                <label class="star star-5 modalStarBtn" for="star-5"></label>
+                                <input data-value="4" data-teacherId=@(Model.InstructorDetails.Id) class="star myStar star-4" id="star-4" type="radio" name="star" value="2" />
+                                <label class="star star-4 modalStarBtn" for="star-4"></label>
+                                <input data-value="3" data-teacherId=@(Model.InstructorDetails.Id) class="star myStar star-3" id="star-3" type="radio" name="star" value="3" />
+                                <label class="star star-3 modalStarBtn" for="star-3"></label>
+                                <input data-value="2" data-teacherId=@(Model.InstructorDetails.Id) class="star myStar star-2" id="star-2" type="radio" name="star" value="4" />
+                                <label class="star star-2 modalStarBtn" for="star-2"></label>
+                                <input data-value="1" data-teacherId=@(Model.InstructorDetails.Id) class="star myStar star-1" id="star-1" type="radio" name="star" value="5" />
+                                <label class="star star-1 modalStarBtn" for="star-1"></label>
+                            </form>
+                            <input id="ratValprodId" type="hidden" value="" />
+                            <div class="review">
+                                <a id="rating_value" href="#">
+                                    @{
+                                        if (Model.InstructorRaiting.Count > 0)
+                                        {
+                                            var rval2 = Model.InstructorRaiting;
+                                            var fiveS = 0;
+                                            var fourS = 0;
+                                            var threeS = 0;
+                                            var twoS = 0;
+                                            var oneS = 0;
+                                            for (var rs = 0; rs < rval2.Count; rs++)
+                                            {
+
+                                                for (var str = 0; str < rval2.Count; str++)
+                                                {
+                                                    if (rval2[str].Star == 5)
+                                                    {
+                                                        fiveS++;
+                                                    }
+                                                    else if (rval2[str].Star == 4)
+                                                    {
+                                                        fourS++;
+                                                    }
+                                                    else if (rval2[str].Star == 3)
+                                                    {
+                                                        threeS++;
+                                                    }
+                                                    else if (rval2[str].Star == 2)
+                                                    {
+                                                        twoS++;
+                                                    }
+                                                    else if (rval2[str].Star == 1)
+                                                    {
+                                                        oneS++;
+                                                    }
+                                                }
+
+                                            }
+
+                                            decimal sum = (fiveS * 5) + (fourS * 4) + (threeS * 3) + (twoS * 2) + (oneS * 1);
+                                            decimal rSum = fiveS + fourS + threeS + twoS + oneS;
+                                            var sumRsum = Math.Round((sum / rSum), 1, MidpointRounding.ToEven);
+
+                                            if (sumRsum != 0)
+                                            {
+                                                @("("+ sumRsum.ToString("F1") + ")" );
+                                            }
+                                            else
+                                            {
+                                                @("(0.0)");
+                                            }
+                                        }
+                                        else
+                                        {
+                                            @("(0.0)");
+                                        }
+                                    }
+                                </a>
+                                <p class="content">Star Rating</p>
+                            </div>
+                        </div>
+                        <div class="instructor-sosials">
+                            <div class="courses-detail-sosials">
+                                @foreach (var instsosial in Model.InstructorDetails.InstructorToSocials)
+                                {
+                                    <a href="@instsosial.InstructorSocial.Link" title="@instsosial.InstructorSocial.Name"><i class="@instsosial.InstructorSocial.Icon" aria-hidden="true"></i></a>
+                                }
+                            </div>
+                            <p class="content">Follow Me</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="instructor-content">
+                        <h3 class="title">@Model.InstructorDetails.Title</h3>
+                        <p class="content">
+                            @Html.Raw(Model.InstructorDetails.Content)
+                        </p>
+                    </div>
+                    <hr>
+                    <div class="courses-title">
+                        <h3 class="title">My Courses</h3>
+                    </div>
+                    <div class="courses-list pt-3">
+                        <div class="row">
+                            @foreach (var course in Model.InstructorDetails.Course)
+                            {
+                                <div class="col-lg-6  col-sm-12 pb-3">
+                                    <div class="card card-home">
+                                        <div class="img-section">
+                                            @if (course.MainImage != "")
+                                            {
+                                                <a asp-controller="course" asp-action="index" asp-route-id="@course.Id">
+                                                    <img src="~/Uploads/@course.MainImage" class="card-img-top" alt="course-1.jpg">
+                                                    @foreach (var item in course.CourseCategoryToCourses)
+                                                    {
+                                                        <a asp-controller="course" asp-action="index" asp-route-tagId="@item.CourseCategoryId" class="btn card-btn cbtn-2">@item.CourseCategory.Name</a>
+                                                    }
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                <a asp-controller="course" asp-action="coursedetails" asp-route-id="@course.Id">
+                                                    <img src="~/assets/images/portfolio/course-1.jpg" class="card-img-top" alt="course-1.jpg">
+                                                    @foreach (var item in course.CourseCategoryToCourses)
+                                                    {
+                                                        <a asp-controller="course" asp-action="index" asp-route-tagId="@item.CourseCategoryId" class="btn card-btn cbtn-2">@item.CourseCategory.Name</a>
+                                                    }
+                                                </a>
+                                            }
+                                            <div class="card-body p-2">
+                                                <h3 class="card-title" href="#">
+                                                    <a asp-controller="course" asp-action="coursedetails" asp-route-id="@course.Id"> @course.Title </a>
+                                                </h3>
+                                                <div class=" row teacher-course d-flex  ">
+                                                    <div class="col-lg-8  col-sm-8 teacher d-flex">
+
+                                                        @if (@course.Instructor.MainImage != "")
+                                                        {
+                                                            <a asp-controller="course" asp-action="coursedetails" asp-route-id="@course.Id">
+                                                                <img src="~/uploads/@course.Instructor.MainImage" alt="">
+                                                            </a>
+                                                        }
+                                                        else
+                                                        {
+                                                            <a asp-controller="course" asp-action="coursedetails" asp-route-id="@course.Id">
+                                                                <img src="~/assets/images/instructors/course-instructor-img.jpg" alt="">
+                                                            </a>
+                                                        }
+                                                        <p class="users pt-2">@course.Instructor.Name @course.Instructor.Surname</p>
+                                                    </div>
+                                                    <div class=" col-lg-4   col-sm-4  teacher-star d-flex justify-content-end pt-2">
+                                                        <a id="rating_value" class="d-flex align-items-center" asp-controller="instructor" asp-action="instructordetails" asp-route-id="@course.Instructor.Id">
+                                                            <form action="">
+                                                                <input class="star star-5" id="star-5" data-id="5" type="radio" name="star" />
+                                                                <label class="star star-5" for="star-5" style="color: #ff5219 !important"></label>
+                                                            </form>
+                                                            @{
+                                                                if (course.Instructor.InstructorRaitings.Count > 0)
+                                                                {
+                                                                    var rval2 = course.Instructor.InstructorRaitings;
+                                                                    var fiveS = 0;
+                                                                    var fourS = 0;
+                                                                    var threeS = 0;
+                                                                    var twoS = 0;
+                                                                    var oneS = 0;
+                                                                    for (var rs = 0; rs < rval2.Count; rs++)
+                                                                    {
+
+
+                                                                        for (var str = 0; str < rval2.Count; str++)
+                                                                        {
+                                                                            if (rval2[str].Star == 5)
+                                                                            {
+                                                                                fiveS++;
+                                                                            }
+                                                                            else if (rval2[str].Star == 4)
+                                                                            {
+                                                                                fourS++;
+                                                                            }
+                                                                            else if (rval2[str].Star == 3)
+                                                                            {
+                                                                                threeS++;
+                                                                            }
+                                                                            else if (rval2[str].Star == 2)
+                                                                            {
+                                                                                twoS++;
+                                                                            }
+                                                                            else if (rval2[str].Star == 1)
+                                                                            {
+                                                                                oneS++;
+                                                                            }
+                                                                        }
+
+                                                                    }
+
+                                                                    decimal sum = (fiveS * 5) + (fourS * 4) + (threeS * 3) + (twoS * 2) + (oneS * 1);
+                                                                    decimal rSum = fiveS + fourS + threeS + twoS + oneS;
+                                                                    var sumRsum = Math.Round((sum / rSum), 1, MidpointRounding.ToEven);
+
+                                                                    if (sumRsum != 0)
+                                                                    {
+                                                                        @("("+ sumRsum.ToString("F1")+")");
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        @("(0.0)");
+                                                                    }
+                                                                }
+                                                                else
+                                                                {
+                                                                    @("(0.0)");
+                                                                }
+                                                            }
+                                                        </a>
+                                                    </div>
+                                                    <hr>
+                                                    <div class="row course-counts pt-2">
+                                                        <div class="col-lg-6 col-sm-6 course-pricing">
+                                                            <i class="bi bi-currency-dollar"></i>
+                                                            <p class="dollar">@course.NewPrice</p>
+                                                        </div>
+                                                        <div class="col-lg-6 col-sm-6 course-admin d-flex justify-content-end">
+                                                            <i class="bi bi-person-circle"></i>
+                                                            <span class="all-counts">@course.Students.Count</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <input id="singleProductId" type="hidden" value="@Model.InstructorDetails.Id" />
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<input id="singleProductId" type="hidden" value="@Model.InstructorDetails.Id" />
+
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 100% !important; display: flex !important; flex-direction: column !important; justify-content: center !important; margin: auto !important; ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form>
+                <div class="modal-body row">
+                    <div class="mb-3 col-lg-6">
+                        <label for="recipient-name" class="col-form-label">Name:</label>
+                        <input type="text" class="form-control" id="recipient-name">
+                    </div>
+                    <div class="mb-3 col-lg-6">
+                        <label for="recipient-surname" class="col-form-label">Surname:</label>
+                        <input type="text" class="form-control" id="recipient-surname">
+                    </div>
+                    <div class="mb-3">
+                        <label for="message-email" class="col-form-label">Email:</label>
+                        <input type="email" class="form-control" id="message-email">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button id="mdoalrat1" type="submit" class="btn btn-primary">Send message</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

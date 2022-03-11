@@ -1,0 +1,27 @@
+﻿@model IdentityRole
+
+@{
+    ViewData["Title"] = "RoleCreate";
+    Layout = "~/Areas/admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container">
+    <div class="row overflow-scroll">
+        <div class="col-lg-4 mt-3">
+            <form asp-area="admin" asp-controller="Account" asp-action="RoleCreate" method="post">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group row">
+                    <div class="col-sm-12 mb-3 mb-sm-0">
+                        <input class="form-control form-control-user"
+                               asp-for="@Model.Name" placeholder="Role name">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-user btn-block">
+                    Create
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+

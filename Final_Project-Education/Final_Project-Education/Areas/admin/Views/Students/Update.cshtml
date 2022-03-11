@@ -1,0 +1,73 @@
+﻿@model Students
+
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Areas/admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<!-- partial -->
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="card-title">Update Students Page</h1>
+                        <form class="forms-sample" asp-area="admin" asp-controller="Students" asp-action="Update" method="post" enctype="multipart/form-data">
+                            <div asp-validation-summary="All" class="text-danger"></div>
+
+                            <div class="form-group">
+                                <label asp-for="@Model.Name" class="form-label">Name</label>
+                                <input class="form-control" asp-for="@Model.Name">
+                                <span asp-validation-for="@Model.Name" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.Surname" class="form-label">Surname</label>
+                                <input class="form-control" asp-for="@Model.Surname">
+                                <span asp-validation-for="@Model.Surname" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.Phone" class="form-label">Phone</label>
+                                <input class="form-control" asp-for="@Model.Phone">
+                                <span asp-validation-for="@Model.Phone" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.Email" class="form-label">Email</label>
+                                <input class="form-control" asp-for="@Model.Email">
+                                <span asp-validation-for="@Model.Email" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.CourseId" class="form-label">Course</label>
+                                <select class="form-control mb-3" aria-label="Default select example" asp-for="@Model.CourseId">
+                                    <option selected>Select Course</option>
+                                    @foreach (var course in ViewBag.Course)
+                                    {
+                                        <option value="@course.Id">@course.Title</option>
+                                    }
+                                </select>
+                                <span asp-validation-for="@Model.CourseId" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.Graduate" class="form-label">Graduate</label>
+                                <input class="form-control" asp-for="@Model.Graduate">
+                                <span asp-validation-for="@Model.Graduate" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.CreatedDate" class="form-label">CreatedDate</label>
+                                <input class="form-control" asp-for="@Model.CreatedDate">
+                                <span asp-validation-for="@Model.CreatedDate" class="text-danger"></span>
+                            </div>
+                            <input class="form-control" type="hidden" asp-for="@Model.Id">
+
+                            <button type="submit" class="btn btn-primary mr-2">Update</button>
+                            <a asp-area="admin" asp-controller="Students" asp-action="Index" class="btn btn-light">Back to list</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- main-panel ends -->
+

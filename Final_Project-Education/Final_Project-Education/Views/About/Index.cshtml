@@ -1,0 +1,249 @@
+﻿@model VmAbout
+@{
+    ViewData["Title"] = "About Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+
+<!--!--!--section Intro--!--!--!-->
+<partial name="_BannerPartial" model="Model.Banner" />
+
+<!--!--!--section categories--!--!--!-->
+<section id="breadcrum" class="section-breadcrum">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4"></div>
+            <div class="col-lg-4 d-flex flex-wrap-nowrap justify-content-center">
+                <div class="banner-breadcrum ">
+                    <ul class="d-flex justify-content-center">
+                        <li><a asp-area="" asp-controller="Home" asp-action="Index" title="Home">Əsas səhifə</a></li>
+                        <li><i class="fa fa-angle-right" aria-hidden="true"></i></li>
+                        <li><a asp-controller="about" asp-action="index" title="About Us">Haqqımızda</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-4"></div>
+        </div>
+    </div>
+</section>
+<!--!--!--section about us--!--!--!-->
+<section id="about" class=" section-about mb-0 pt-5 pb-5 ">
+    <h1>@ViewBag.Session</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-12 intros mr-5 ">
+                <div class="about-img">
+
+                    <img src="~/Uploads/@Model.Abouts.FirstOrDefault().Image" alt="about-img">
+                </div>
+                <div class="about-img-bg">
+                    <img src="~/Uploads/@Model.Abouts.FirstOrDefault().ImageBack" alt="">
+                </div>
+                <a asp-area="" asp-controller="Students" asp-action="Index">
+                    <dl class="row bg-white linkbutton lbtn-1">
+                        <dt class="col-lg-2 col-sm-2 col-2 circle">
+                            <div class="lbtn-img img1">
+                                <img src="~/assets/images/icons/banner-aliment-icon-1.png"
+                                     class="rounded float-start" alt="banner-aliment-icon">
+                            </div>
+                        </dt>
+                        <dd class="col-lg-10 col-sm-10 col-10">
+                            <h3 class="title">Uğurlarımız</h3>
+                            <span>Məzunların siyahısı</span>
+                        </dd>
+                    </dl>
+                </a>
+                <a asp-area="" asp-controller="Course" asp-action="Index">
+                    <dl class="row bg-white linkbutton lbtn-3">
+                        <dt class="col-lg-2 col-sm-2 col-2 circle">
+                            <div class="lbtn-img img3">
+                                <img src="~/assets/images/icons/banner-aliment-icon-3.png"
+                                     class="rounded float-start" alt="banner-aliment-icon">
+                            </div>
+                        </dt>
+                        <dd class="col-lg-10 col-sm-10 col-10">
+                            <h3 class="title">@Model.Students.Count</h3>
+                            <span>Tələbələrimiz</span>
+                        </dd>
+                    </dl>
+                </a>
+            </div>
+            <div class=" col-lg-6 col-md-12 intro  ml-5 ">
+                <h2 class="headerBlue"> About us</h2>
+                <h1 class="header">@Model.Abouts.FirstOrDefault().Title</h1>
+                <p class=" intro3 ">
+                    @Html.Raw(Model.Abouts.FirstOrDefault().Content)
+                </p>
+                <ul class="fa-ul m-0">
+                    @foreach (var advice in Model.Advices)
+                    {
+                        <li class=" mt-2">
+                            <i class="fa fa-check-circle"></i>@Html.Raw(advice.Content)
+                        </li>
+
+                    }
+                </ul>
+               
+            </div>
+        </div>
+    </div>
+</section>
+<!--!--!--section companies--!--!--!-->
+<section id="companies" class="sectionCompanies">
+    <div class="container forBackground">
+        <div class="row">
+            <div class="col-lg-12 sliderCompanies owl-carousel owl-theme">
+                @foreach (var companie in Model.Partners)
+                {
+                    <div class="slide_item ">
+                        <img src="~/Uploads/@companie.Image" alt="brand">
+                    </div>
+                }
+            </div>
+            <div class="col-lg-12 sliderBackground"></div>
+        </div>
+    </div>
+</section>
+<!--!--!--section programs--!--!--!-->
+<section id="programs" class="section-programs bg-light pb-5 pt-5">
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-lg-12 programs-title">
+                <h2 class="headerBlue"> Academik programlar</h2>
+                <h1 class="header">Ən yaxşı academik programlar</h1>
+            </div>
+            @foreach (var program in Model.Programs)
+            {
+                <div class="col-lg-3 col-md-6 col-sm-12 programs-card">
+                    <div class="card programs">
+                        <div class="img-section">
+                            @if (program.MainImage != "")
+                            {
+
+                                <img src="~/Uploads/@program.MainImage" class="card-img-top" alt="course-1.jpg">
+                            }
+                            else
+                            {
+                                <img src="~/assets/images/portfolio/course-1.jpg" class="card-img-top" alt="course-1.jpg">
+                            }
+                        </div>
+                        <div class="card-body p-2">
+                            <h3 class="card-title" href="#">@program.Title</h3>
+                            <p class="content">@program.Content</p>
+                            <a asp-area="" asp-controller="Contact" asp-action="Index">Qoşul <i class="fa fa-angle-right" aria-hidden="true"></i> </a>
+                        </div>
+                    </div>
+                </div>
+            }
+
+
+        </div>
+    </div>
+</section>
+<!--!--!--section events--!--!--!-->
+<section id="events" class="section-events mb-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-12 left-event">
+                <img src="~/Uploads/@Model.Settings.EventImage" alt="video illustration"
+                     class="img-fluid justify-content-left">
+                <a href="" type="text/javascript"
+                   class="glightbox position-absolute top-50 start-50 translate-midlle">
+                    <span>
+                        <i class="fas fa-play-circle"></i>
+                        <p class="smalword">Bizi izlə!</p>
+                    </span>
+                    <span class="border-animation border-animation--border-1"></span>
+                    <span class="border-animation border-animation--border-2"></span>
+                </a>
+            </div>
+            <div class="col-lg-6 col-md-12 right-event ">
+                <h2 class="headerBlue"> Tədbirlərimiz </h2>
+                <h1 class="header">Qarşıdan gələn tədbirlərimizə qoşulun</h1>
+                @foreach (var even in Model.Events)
+                {
+                    <div class="row right-event-box bg-white d-flex p-4 mb-4">
+                        <div class="col-lg-3 right-event-date d-flex flex-column justify-content-center">
+                            @*<div class="event-date pb-0">
+                                    <p class="content">15</p>
+                                </div>*@
+                            <div class="event-year">
+                                <p class="content" style="text-transform: capitalize;">@even.CreatedDate.ToString("MMMM dd, yyyy")</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-9 event-content d-flex flex-column justify-content-center">
+                            <div class="col-lg-12 content-date  d-flex pb-0 mb-0">
+                                <div class="row">
+                                    <p class="col-lg-6 content">@even.WorkTime</p>
+                                    <p class="col-lg-6 content">@even.Address</p>
+                                </div>
+
+                            </div>
+                            <div class="col-lg-12  link-event">
+                                <a href="#">
+                                    <h3 class="title">@even.Title</h3>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+<!--!--!--section testimonial--!--!--!-->
+@await Component.InvokeAsync("VcFeedback")
+<!--!--!--section blog--!--!--!-->
+<section id="blogs" class="section-blogs mt-5 mb-5 ">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 header-blog">
+                <h2 class="headerBlue">İKT Xəbərləri</h2>
+                <h1 class="header">Dünyadan və bizdən xəbərlər</h1>
+            </div>
+            <div class="col-lg-12">
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    @foreach (var blog in Model.Blogs)
+                    {
+                        <div class="col-lg-4 col-md-6 col-sm-12 ">
+                            <div class="card card-blogs">
+                                <div class="img-section">
+                                    @if (blog.MainImage != "")
+                                    {
+                                        <a asp-controller="blog" asp-action="blogdetails" asp-route-id="@blog.Id">
+                                            <img src="~/Uploads/@blog.MainImage" alt="" style="width: 100%;">
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <a asp-controller="blog" asp-action="blogdetails" asp-route-id="@blog.Id">
+                                            <img src="~/assets/images/portfolio/blog-big-img-1.jpg" alt="" style="width: 100%;">
+                                        </a>
+                                    }
+                                </div>
+                                <div class="card-body p-2">
+                                    <h3 class="card-title">
+                                        <a asp-controller="blog" asp-action="blogdetails" asp-route-id="@blog.Id"> @Html.Raw(blog.Title != null && blog.Title.Length > 30 ? blog.Title.Substring(0, 30) + "..." : blog.Title) </a>
+                                    </h3>
+                                </div>
+                                <hr>
+                                <div class="row blogs-date-comments pt-2">
+                                    <div class="col-lg-6  blogs-date d-flex justify-content-end">
+                                        <i class="fas fa-calendar-alt"></i>
+                                        <p class="date" style="text-transform: capitalize;">@blog.CreatedDate.ToString("MMMM dd, yyyy")</p>
+                                    </div>
+                                    <div class="col-lg-6  blogs-comments">
+                                        <img src="~/assets/images/icons/comment.png" alt="calendar">
+                                        <span class="all-comment">@blog.Comments.Count Comments</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>

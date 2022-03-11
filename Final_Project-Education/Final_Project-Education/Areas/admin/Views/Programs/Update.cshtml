@@ -1,0 +1,50 @@
+﻿@model Programs
+
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Areas/admin/Views/Shared/_Layout.cshtml";
+}
+
+<!-- partial -->
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="card-title">Update Programs Page</h1>
+                        <form class="forms-sample" asp-area="admin" asp-controller="Programs" asp-action="Update" method="post" enctype="multipart/form-data">
+                            <div asp-validation-summary="All" class="text-danger"></div>
+                            <div class="form-group">
+                                <label asp-for="@Model.MainImageFile" class="form-label">Image</label>
+                                <img src="~/Uploads/@Model.MainImage" alt="Alternate Text" width="100" height="100" />
+                                <input class="form-control" asp-for="@Model.MainImageFile">
+                                <span asp-validation-for="@Model.MainImageFile" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.Title" class="form-label">Title</label>
+                                <input class="form-control" asp-for="@Model.Title">
+                                <span asp-validation-for="@Model.Title" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.Content" class="form-label">Content</label>
+                                <textarea id="editor" class="form-control" asp-for="@Model.Content" rows="12"></textarea>
+                                <span asp-validation-for="@Model.Content" class="text-danger"></span>
+                            </div>
+
+                            <input class="form-control" type="hidden" asp-for="@Model.Id">
+                            <input type="hidden" asp-for="@Model.MainImageFile" />
+                            <input class="form-control" type="hidden" asp-for="@Model.Id">
+                            <input type="hidden" asp-for="@Model.MainImage" />
+                            <button type="submit" class="btn btn-primary mr-2">Update</button>
+                            <a asp-area="admin" asp-controller="Programs" asp-action="Index" class="btn btn-light">Back to list</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- main-panel ends -->
+
+

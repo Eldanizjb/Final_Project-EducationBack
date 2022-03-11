@@ -1,0 +1,55 @@
+﻿@model Feedback
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<!-- partial -->
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="card-title">Create Feedback Page</h1>
+                        <form class="forms-sample" asp-area="admin" asp-controller="Feedback" asp-action="Create" method="post" enctype="multipart/form-data">
+                            <div asp-validation-summary="All" class="text-danger"></div>
+                            <div class="form-group">
+                                <label asp-for="@Model.ImageFile" class="form-label">Image</label>
+                                <input class="form-control" asp-for="@Model.ImageFile">
+                                <span asp-validation-for="@Model.ImageFile" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.Fullname" class="form-label">Fullname</label>
+                                <input class="form-control" asp-for="@Model.Fullname">
+                                <span asp-validation-for="@Model.Fullname" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.Content" class="form-label">Content</label>
+                                <textarea id="editor" class="form-control" asp-for="@Model.Content" rows="12"></textarea>
+                                <span asp-validation-for="@Model.Content" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.Position" class="form-label">Position</label>
+                                <input class="form-control" asp-for="@Model.Position">
+                                <span asp-validation-for="@Model.Position" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.CreatedDate" class="form-label">CreatedDate</label>
+                                <input class="form-control" asp-for="@Model.CreatedDate">
+                                <span asp-validation-for="@Model.CreatedDate" class="text-danger"></span>
+                            </div>
+
+
+                            <button type="submit" class="btn btn-primary mr-2">Create</button>
+                            <a asp-area="admin" asp-controller="Feedback" asp-action="Index" class="btn btn-light">Back to list</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- main-panel ends -->

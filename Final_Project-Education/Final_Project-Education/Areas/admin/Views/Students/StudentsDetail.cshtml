@@ -1,0 +1,68 @@
+﻿@model Students
+
+@{
+    ViewData["Title"] = "StudentsDetail";
+    Layout = "~/Areas/admin/Views/Shared/_Layout.cshtml";
+}
+
+
+
+@{
+    if (TempData["StudentsError"] != null)
+    {
+        <div class="alert alert-success">
+            <p class="text-danger">@(TempData["StudentsError"] as string)</p>
+        </div>
+        TempData["StudentsError"] = null;
+    }
+}
+
+
+<!-- partial -->
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="form-group">
+                            <h1 class="card-title" style="color:darkred">Name</h1>
+                            <p class="form-label">@Model.Name</p>
+                        </div>
+                        <div class="form-group">
+                            <h1 class="card-title" style="color:darkred">Surname</h1>
+                            <p class="form-label">@Model.Surname</p>
+                        </div>
+                        <div class="form-group">
+                            <h1 class="card-title" style="color:darkred">Phone</h1>
+                            <p class="form-label">@Model.Phone</p>
+                        </div>
+                        <div class="form-group">
+                            <h1 class="card-title" style="color:darkred">Email</h1>
+                            <p class="form-label">@Html.Raw(Model.Email)</p>
+                        </div>
+                        <div class="form-group">
+                            <h1 class="card-title" style="color:darkred">Course</h1>
+                            <p class="form-label">@Model.Course.Title</p>
+                        </div>
+                        <div class="form-group">
+                            <h1 class="card-title" style="color:darkred">Graduate</h1>
+                            <p class="form-label">@Model.Graduate</p>
+                        </div>
+                        <div class="form-group">
+                            <h1 class="card-title" style="color:darkred">CreatedDate</h1>
+                            <p class="form-label">@Model.CreatedDate</p>
+                        </div>
+                        
+                        <a class="btn btn-success" asp-area="admin" asp-controller="Students" asp-action="Update" asp-route-id="@Model.Id">Update</a>
+                        <a class="btn btn-danger" asp-area="admin" asp-controller="Students" asp-action="Delete" asp-route-id="@Model.Id" onclick="return confirm('Silinməsinə əminsənmi?')">Delete</a>
+                        <a class="btn btn-secondary" asp-area="admin" asp-controller="Students" asp-action="Index"> Back to list</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

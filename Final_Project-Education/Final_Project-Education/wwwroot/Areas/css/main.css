@@ -1,0 +1,14 @@
+.ck-editor__editable_inline {
+    height: 400px !important;
+}
+.table td {
+    padding-right: 0 !important;
+    padding-left: 7px !important;
+}
+.table th {
+    padding-right: 0 !important;
+    padding-left: 7px !important;
+}
+.tables-scroll{
+    overflow-x:scroll !important;
+}

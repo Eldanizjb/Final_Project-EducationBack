@@ -1,0 +1,212 @@
+﻿@model VmBlog
+
+@{
+    ViewData["Title"] = "Blog Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--!--!--section Intro--!--!--!-->
+<partial name="_BannerPartial" model="Model.Banner" />
+<!--!--!--section categories--!--!--!-->
+<section id="breadcrum" class="section-breadcrum">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4"></div>
+            <div class="col-lg-4 d-flex flex-wrap-nowrap justify-content-center">
+                <div class="banner-breadcrum ">
+                    <ul class="d-flex justify-content-center">
+                        <li><a asp-area="" asp-controller="Home" asp-action="Index" title="Home">Əsas səhifə</a></li>
+                        <li><i class="fa fa-angle-right" aria-hidden="true"></i></li>
+                        <li><a asp-controller="blog" asp-action="index" title="Blogs">İKT Xəbərləri</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-4"></div>
+        </div>
+    </div>
+</section>
+<!--!--!--section courses lists--!--!--!-->
+<section id="blog-page" class="blog-list pt-5 .bg-gradient-light">
+    <div class="container">
+        <dvi class="row">
+            <div class="col-lg-8 blog-list-boxs">
+                @foreach (var blog in Model.Blogs)
+                {
+                    <div class="card blog-card">
+                        <div class="card-header p-0">
+                            <div class="blog-card-img">
+                                @if (blog.MainImage != "")
+                                {
+                                    <a asp-controller="blog" asp-action="blogdetails" asp-route-id="@blog.Id" >
+                                        <img src="~/Uploads/@blog.MainImage" alt="" style="width: 100%;">
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a asp-controller="blog" asp-action="blogdetails" asp-route-id="@blog.Id">
+                                        <img src="~/assets/images/portfolio/blog-big-img-1.jpg" alt="" style="width: 100%;">
+                                    </a>}
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="blog-card-user-infrom">
+                                <div class="blog-card-user-box">
+                                    <div class="blog-card-icon">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                    <div class="blog-card-name">
+                                        <a href="#">
+                                            <p class="content">@blog.CustomUser.Surname </p>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="blog-card-user-box">
+                                    <div class="blog-card-icon">
+                                        <i class="fas fa-calendar-alt"></i>
+                                    </div>
+                                    <div class="blog-card-date">
+                                        <a href="#">
+                                            <p class="content" style="text-transform: capitalize;">@blog.CreatedDate.ToString("MMMM dd, yyyy")</p>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="blog-card-user-box">
+                                    <div class="blog-card-icon">
+                                        <i class="fas fa-comment"></i>
+                                    </div>
+                                    <div class="blog-card-comment">
+                                        <a href="#">
+                                            <p class="content">@blog.Comments.Count Comments</p>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h3 class="card-title">
+                                <a asp-controller="blog" asp-action="blogdetails" asp-route-id="@blog.Id"> @blog.Title </a>
+                            </h3>
+                            <p class="card-text">
+                                @Html.Raw(blog.Content != null && blog.Content.Length > 150 ? blog.Content.Substring(0, 150) + "..." : blog.Content )                           
+                            </p>
+                            <a asp-controller="blog" asp-action="blogdetails" asp-route-id="@blog.Id" class="button btn-1">Ətraflı oxu</a>
+                        </div>
+                    </div>
+                }
+                <div class="pagination">
+                    <div class="row">
+                        <div class="col-12 d-flex justify-content-center align-items-center ">
+                            <ul class="pagination-list mt-3 justify-content-center pagination-style">
+                                <li class="pagination-item  @(ViewBag.Page==1?"disabled":"")">
+                                    <a asp-controller="blog" asp-action="index" asp-route-page="@(ViewBag.Page-1) class="pagination-item-link">
+                                        <i class="fa fa-angle-left"
+                                           aria-hidden="true"></i>
+                                    </a>
+                                </li>
+
+                                @for (int i = 0; i < ViewBag.PageCount; ++i)
+                                {
+
+                                    <li class="pagination-item  @(ViewBag.Page==(i+1)?"active":"")">
+                                        <a class="pagination-item-link" asp-controller="blog" asp-action="index" asp-route-page="@(i+1)" asp-route-tagId="@Model.Search.tagId"  asp-route-catId="@Model.Search.catId" asp-route-page="@Model.Search.page"  >@(i+1)</a>
+                                    </li>
+
+                                }
+                                <li class="pagination-item  @(ViewBag.Page==ViewBag.PageCount?"disabled":"")">
+                                    <a asp-controller="blog" asp-action="index" asp-route-page="@(ViewBag.Page+1)" class="pagination-item-link">
+                                        <i class="fa fa-angle-right"
+                                           aria-hidden="true"></i>
+                                    </a>    
+                                </li>
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 blog-all-tags">
+                <div class="sidebar-search mb-4">
+                    <div class="sidebar-form">
+                        <form method="get" asp-controller="blog" asp-action="index">
+                            <div class="form-group search-group">
+                                <input type="text" asp-for="@Model.Search.searchData" value="" placeholder="Search..." required>
+                                <input asp-for="@Model.Search.catId" hidden />
+                                <input asp-for="@Model.Search.tagId" hidden />
+                                <input asp-for="@Model.Search.page" hidden />
+
+                                <button type="submit"><span class="icon fa fa-search"></span></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="sidebar-categories sidebar-background ">
+                    <div class="sidebar-title">
+                        <h3 class="title">Kateqoriya</h3>
+                    </div>
+                    <div class="sidebar-content">
+                        <ul class="sidebar-list">
+                            @foreach (var item in Model.BlogCategories)
+                            {
+                                <li>
+                                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                    <a asp-controller="blog" asp-action="index" asp-route-catId="@item.Id" asp-route-tagId="@Model.Search.tagId" asp-route-searchData="@Model.Search.searchData" asp-route-page="@Model.Search.page" style="@(item.Id==Model.Search.catId?"background-color: #ff5219 !important;":"")">
+
+                                        @item.Name (@item.Blogs.Count)
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+
+            <div class="sidebar-related-all sidebar-background p-4">
+                <div class="sidebar-title">
+                    <h3 class="title">Xəbər xülasələri</h3>
+                </div>
+                @foreach (var rigthblog in Model.Blogs.OrderByDescending(o => o.CreatedDate).Take(4))
+                {
+                    <div class="sidebar-related d-flex mb-3 row">
+                        <div class="sidebar-related-img col-lg-4 col-sm-4">
+                            @if (rigthblog.MainImage != "")
+                            {
+                                <a asp-controller="blog" asp-action="blogdetails" asp-route-id="@rigthblog.Id">
+                                    <img src="~/Uploads/@rigthblog.MainImage" alt="" style="height:100%">
+                                </a>
+                            }
+                            else
+                            {
+                                <a asp-controller="blog" asp-action="blogdetails" asp-route-id="@rigthblog.Id">
+                                    <img src="~/assets/images/portfolio/related-event-img-1.jpg" alt="recent-event-img" style="height:100%">
+                                </a>}
+
+                        </div>
+                        <div class="sidebar-related-content col-lg-8 col-sm-8">
+                            <a asp-controller="blog" asp-action="blogdetails" asp-route-id="@rigthblog.Id">
+                                @Html.Raw(rigthblog.Title != null && rigthblog.Title.Length > 50 ? rigthblog.Title.Substring(0, 50) + "..." : rigthblog.Title)
+                            </a>
+                            <div class="sidebar-related-footer relaited-blog d-flex">
+                                <i class="fas fa-calendar-alt"></i>
+                                <p class="content" style="text-transform: capitalize;">@rigthblog.CreatedDate.ToString("MMMM dd, yyyy")</p>
+                            </div>
+
+                        </div>
+                    </div>
+                }
+               
+            </div>
+                <div class="sidebar-tag-all sidebar-background mt-4">
+                    <div class="sidebar-title">
+                        <h3 class="title">Keçidlər</h3>
+                    </div>
+                    <div class="sidebar-tag-content">
+                        <ul class="tag-categories">
+                            @foreach (var item in Model.Tags)
+                            {
+                                <a asp-controller="blog" asp-action="index" asp-route-tagId="@item.Id" asp-route-catId="@Model.Search.catId" asp-route-page="@Model.Search.page" asp-route-searchData="@Model.Search.searchData" class="btn card-btn cbtn-2" style="@(item.Id==Model.Search.tagId?"background-color: #ff5219 !important;":"")">@item.Name</a>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </dvi>
+    </div>
+</section>

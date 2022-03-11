@@ -1,0 +1,98 @@
+﻿@model Event
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<!-- partial -->
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="card-title">Create Event Page</h1>
+                        <form class="forms-sample" asp-area="admin" asp-controller="Event" asp-action="Create" method="post" enctype="multipart/form-data">
+                            <div asp-validation-summary="All" class="text-danger"></div>
+                            <div class="form-group">
+                                <label asp-for="@Model.MainImageFile" class="form-label">Image</label>
+                                <input class="form-control" asp-for="@Model.MainImageFile">
+                                <span asp-validation-for="@Model.MainImageFile" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.Title" class="form-label">Title</label>
+                                <input class="form-control" asp-for="@Model.Title">
+                                <span asp-validation-for="@Model.Title" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.WorkTime" class="form-label">WorkTime</label>
+                                <input class="form-control" asp-for="@Model.WorkTime">
+                                <span asp-validation-for="@Model.WorkTime" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.Address" class="form-label">Address</label>
+                                <input class="form-control" asp-for="@Model.Address">
+                                <span asp-validation-for="@Model.Address" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="@Model.Content" class="form-label">Content</label>
+                                <textarea id="editor" class="form-control" asp-for="@Model.Content" rows="12"></textarea>
+                                <span asp-validation-for="@Model.Content" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="@Model.OldPrice" class="form-label">OldPrice</label>
+                                <input class="form-control" asp-for="@Model.OldPrice">
+                                <span asp-validation-for="@Model.OldPrice" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.OldDiscountPrice" class="form-label">OldDiscountPrice</label>
+                                <input class="form-control" asp-for="@Model.OldDiscountPrice">
+                                <span asp-validation-for="@Model.OldDiscountPrice" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.NewPrice" class="form-label">NewPrice</label>
+                                <input class="form-control" asp-for="@Model.NewPrice">
+                                <span asp-validation-for="@Model.NewPrice" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.NewDiscountPrice" class="form-label">NewDiscountPrice</label>
+                                <input class="form-control" asp-for="@Model.NewDiscountPrice">
+                                <span asp-validation-for="@Model.NewDiscountPrice" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.PricePercent" class="form-label">PricePercent</label>
+                                <input class="form-control" asp-for="@Model.PricePercent">
+                                <span asp-validation-for="@Model.PricePercent" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.CreatedDate" class="form-label">CreatedDate</label>
+                                <input class="form-control" asp-for="@Model.CreatedDate">
+                                <span asp-validation-for="@Model.CreatedDate" class="text-danger"></span>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label asp-for="@Model.InstructorId" class="form-label">Instructor</label>
+                                <select class="form-control mb-3" aria-label="Default select example" asp-for="@Model.InstructorId">
+                                    <option selected>Select Instructor Name</option>
+                                    @foreach (var name in ViewBag.Instructor)
+                                    {
+                                        <option value="@name.Id">@name.Name</option>
+                                    }
+                                </select>
+                                <span asp-validation-for="@Model.InstructorId" class="text-danger"></span>
+                            </div>
+                            <button type="submit" class="btn btn-primary mr-2">Create</button>
+                            <a asp-area="admin" asp-controller="Event" asp-action="Index" class="btn btn-light">Back to list</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- main-panel ends -->
+\

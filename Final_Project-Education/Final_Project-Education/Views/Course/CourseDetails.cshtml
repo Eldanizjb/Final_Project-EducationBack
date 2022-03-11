@@ -1,0 +1,487 @@
+﻿@model VmCourse
+
+@{
+    ViewData["Title"] = "Course Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<!--!--!--section Intro--!--!--!-->
+<partial name="_BannerPartial" model="Model.Banner" />
+<!--!--!--section categories--!--!--!-->
+<section id="breadcrum" class="section-breadcrum">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4"></div>
+            <div class="col-lg-4 d-flex flex-wrap-nowrap justify-content-center">
+                <div class="banner-breadcrum ">
+                    <ul class="d-flex justify-content-center">
+                        <li><a asp-area="" asp-controller="Home" asp-action="Index" title="Home">Home</a></li>
+                        <li><i class="fa fa-angle-right" aria-hidden="true"></i></li>
+                        <li><a asp-area="" asp-controller="Course" asp-action="Index" title="Courses">Kurslar</a></li>
+                        <li><i class="fa fa-angle-right" aria-hidden="true"></i></li>
+                        <li><a asp-controller="course" asp-action="courseDetails" title="Courses Detail">Ətraflı</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-4"></div>
+        </div>
+    </div>
+</section>
+<!--!--!--section courses lists--!--!--!-->
+<section id="courses-detail" class="section-courses-detail pt-5 .bg-gradient-light">
+    <div class="container">
+        <dvi class="row">
+            <div class="col-lg-8 courses-detail-list-boxs">
+                <div class="courses-detail-header">
+                    <h3 class="title">Become product manager learn skills.</h3>
+                    <div class="courses-detail-about-instructor d-flex row">
+                        <div class="courses-detail-instructor-img teacher d-flex col-sm-2">
+                            <img src="~/Uploads/@Model.CourseDetails.Instructor.MainImage" alt="">
+                        </div>
+                        <div class="courses-detail-instructor-name ms-2 col-sm-5">
+                            <h3 class="title">@Model.CourseDetails.Instructor.Name @Model.CourseDetails.Instructor.Surname</h3>
+                            <p class="content">@Model.CourseDetails.Instructor.Position</p>
+                        </div>
+                        <div class="courses-detail-instructor-date ms-5 col-sm-5">
+                            <h3 class="title" style="text-transform: capitalize;">@Model.CourseDetails.CreatedDate.ToString("MMMM dd, yyyy")</h3>
+                            <p class="content">Last Update</p>
+                        </div>
+                    </div>
+                    <div class="courses-detail-instructor-date d-flex">
+
+                        <div class="stars">
+                            <a class="li-text d-flex align-items-center">
+                                <form action="">
+                                    <input class="star star-5" id="star-5" data-id="5" type="radio" name="star" />
+                                    <label class="star star-5" for="star-5" style="color: #ff5219 !important"></label>
+                                </form>
+                                @{
+                                    if (Model.CourseDetails.Instructor.InstructorRaitings.Count > 0)
+                                    {
+                                        var rval2 = Model.CourseDetails.Instructor.InstructorRaitings;
+                                        var fiveS = 0;
+                                        var fourS = 0;
+                                        var threeS = 0;
+                                        var twoS = 0;
+                                        var oneS = 0;
+                                        for (var rs = 0; rs < rval2.Count; rs++)
+                                        {
+
+
+                                            for (var str = 0; str < rval2.Count; str++)
+                                            {
+                                                if (rval2[str].Star == 5)
+                                                {
+                                                    fiveS++;
+                                                }
+                                                else if (rval2[str].Star == 4)
+                                                {
+                                                    fourS++;
+                                                }
+                                                else if (rval2[str].Star == 3)
+                                                {
+                                                    threeS++;
+                                                }
+                                                else if (rval2[str].Star == 2)
+                                                {
+                                                    twoS++;
+                                                }
+                                                else if (rval2[str].Star == 1)
+                                                {
+                                                    oneS++;
+                                                }
+                                            }
+
+                                        }
+
+                                        decimal sum = (fiveS * 5) + (fourS * 4) + (threeS * 3) + (twoS * 2) + (oneS * 1);
+                                        decimal rSum = fiveS + fourS + threeS + twoS + oneS;
+                                        var sumRsum = Math.Round((sum / rSum), 1, MidpointRounding.ToEven);
+
+                                        if (sumRsum != 0)
+                                        {
+                                            @("("+ sumRsum.ToString("F1") + ")" );
+                                        }
+                                        else
+                                        {
+                                            @("(0.0)");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        @("(0.0)");
+                                    }
+                                }
+                            </a>
+                            <p class="content">Star Rating</p>
+                        </div>
+                        <div class="courses-detail-raiting-button ms-5">
+                            @foreach (var category in Model.CourseDetails.CourseCategoryToCourses)
+                            {
+                                <a asp-controller="course" asp-action="coursedetails" asp-route-catId="@category.CourseCategoryId" rel="category" class="btn card-btn cbtn-1">@category.CourseCategory.Name</a>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="courses-detail-content pt-3">
+                    <div class="row">
+                        <div class="col-lg-12 pb-3">
+                            <div class="courses-detail-img">
+                                <img src="~/Uploads/@Model.CourseDetails.MainImage" alt="" style="width:100%">
+                            </div>
+                            <div class="courses-detail-body p-2">
+                                <h3 class="card-title" href="#">@Model.CourseDetails.Title</h3>
+                                <p class="content">
+                                    @Html.Raw(Model.CourseDetails.Content)
+                                </p>
+                            </div>
+                            <div class="courses-detail-advice p-2">
+                                <h3 class="card-title" href="#">What will I learn?</h3>
+                                <ul class="fa-ul m-0">
+                                    @foreach (var advice in Model.Advices)
+                                    {
+                                        <li class=" mt-2 d-flex align-items-center">
+                                            <i class="fa fa-check-circle"></i>
+                                            <p class="content">
+                                                @Html.Raw(advice.Content)
+                                            </p>
+                                        </li>
+
+                                    }
+                                </ul>
+                            </div>
+                            <div class="courses-detail-sosials">
+
+                                @foreach (var item in Model.Socials)
+                                {
+                                    <a href="@item.Link" title="@item.Name"><i class="@item.Icon" aria-hidden="true"></i></a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="course-detail-comment">
+                    <div class="course-detail-comment-header">
+                        <h2 class="headerBlue">Our Review</h2>
+                        <h1 class="header">Comments</h1>
+                    </div>
+                    <div class="row">
+                        @{
+                            foreach (var courseC in @Model.CourseDetails.CourseComments)
+                            {
+                                if (courseC.ParentCommentId == null)
+                                {
+                                    <div class="col-lg-12">
+                                        <div class="course-detail-customer-comment mb-3 d-flex">
+                                            <div class="customer-comment-img">
+                                                          @if (courseC.Commenter.MainImage != "")
+                                                             {
+                                                              <img class="comment-img" src="~/Uploads/@courseC.Commenter.MainImage" alt="">
+                                                               }
+                                                           else
+                                                              {
+                                                            <img class="comment-img" src="~/assets/images/instructors/instructor-4.jpg" alt="customer">
+                                                           }                                                              
+                                            </div>
+                                            <div class="customer-comment-content ms-5">
+                                                <h3 class="title">@courseC.Commenter.Name</h3>
+                                                <span>
+                                                    @{
+                                                        var date = (DateTime.Now - courseC.CreatedDate);
+                                                        if (date.Days == 0)
+                                                        {
+                                                            if (date.Hours == 0)
+                                                            {
+                                                                if (date.Minutes == 0)
+                                                                {
+                                                                    @(date.Seconds) @(" seconds before")
+                                                                }
+                                                                else
+                                                                {
+                                                                    @(date.Minutes) @(" minutes before")
+                                                                }
+                                                            }
+                                                            else
+                                                            {
+                                                                @(date.Hours) @(" hours before")
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            @(date.Days) @(" days before")
+                                                        }
+                                                    }
+                                                </span>
+                                                <p class="content">
+                                                    @courseC.Text
+                                                </p>
+                                                <button id="open-reply" class="button reply-btn replybtn-1">
+                                                    <span>Reply to @courseC.Commenter.Name</span><i class="fa fa-reply" aria-hidden="true"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        @{
+                                            foreach (var courseP in @Model.CourseDetails.CourseComments)
+                                            {
+                                                if (courseP.ParentCommentId == courseC.Id)
+                                                {
+                                                    <div class="course-detail-customer-comment mb-3 d-flex">
+                                                        <div class="customer-comment-img">
+                                                          @if (courseP.Commenter.MainImage != "")
+                                                             {
+                                                              <img class="comment-img" src="~/Uploads/@courseP.Commenter.MainImage" alt="">
+                                                               }
+                                                           else
+                                                              {
+                                                            <img class="comment-img" src="~/assets/images/instructors/instructor-3.jpg" alt="customer">
+                                                           }    
+                                                        </div>
+                                                        <div class="customer-comment-content ms-5">
+                                                            <h3 class="title">@courseP.Commenter.Name</h3>
+                                                            <span>
+                                                                @{
+                                                                    var date2 = (DateTime.Now - courseP.CreatedDate);
+                                                                    if (date2.Days == 0)
+                                                                    {
+                                                                        if (date2.Hours == 0)
+                                                                        {
+                                                                            if (date2.Minutes == 0)
+                                                                            {
+                                                                                @(date2.Seconds) @(" seconds before")
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                @(date2.Minutes) @(" minutes before")
+                                                                            }
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            @(date2.Hours) @(" hours before")
+                                                                        }
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        @(date2.Days) @(" days before")
+                                                                    }
+                                                                }
+                                                            </span>
+                                                            <p class="content">
+                                                                @courseP.Text
+                                                            </p>
+                                                            <button id="open-reply" class="button reply-btn replybtn-1">
+                                                                 <span>Reply to @courseP.Commenter.Name</span><i class="fa fa-reply" aria-hidden="true"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            }
+                                        }
+                                    </div>
+                                    <div class="course-detail-reply " id="reply-hidden" style="display:none">
+                                        <div class="row">
+                                            <!-- Review Comment -->
+                                            <form id="add-comment" class="leave-reply-form" asp-controller="Course" asp-action="CommentsAll" method="post">
+                                                <fieldset>
+                                                    <div class="form-group-firstline d-flex">
+                                                        <div class="col-lg-4">
+                                                            <div class="form-group">
+                                                                <input asp-for="@Model.Commenter.Name" placeholder="Name"
+                                                                       class="form-control form-control-alternative">
+                                                                <div asp-validation-summary="All"></div>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-4">
+                                                            <div class="form-group">
+                                                                <input asp-for="@Model.Commenter.Surname" placeholder="Last Name"
+                                                                       class="form-control form-control-alternative">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-4">
+                                                            <div class="form-group">
+                                                                <input asp-for="@Model.Commenter.Email" placeholder="Email Address"
+                                                                       class="form-control form-control-alternative">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                        <div class="form-group">
+                                                            <textarea asp-for="@Model.Commenter.Content" class="form-control form-control-alternative"
+                                                                      placeholder="Comment" id="exampleFormControlTextarea1"></textarea>
+                                                        </div>
+                                                    <input hidden asp-for="@Model.Commenter.CourseId" value="@Model.CourseDetails.Id" />
+                                                </fieldset>
+
+                                                <button type="submit" class="button btn-1 reply">Post Now to @courseC.Commenter.Name</button>
+                                                <div class="clearfix"></div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        }
+                        <div class="course-detail-reply">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="course-detail-reply-header">
+                                        <h2 class="headerBlue">Şərh yazın</h2>
+                                        <h1 class="header">Rəy</h1>
+                                    </div>
+                                </div>
+                                <!-- Review Comment -->
+                                <form id="add-comment" class="leave-reply-form" asp-controller="Course" asp-action="CommentsAll" method="post">
+                                    <fieldset>
+                                        <div class="form-group-firstline d-flex">
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    <input asp-for="@Model.Commenter.Name" placeholder="First Name"
+                                                           class="form-control form-control-alternative">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    <input asp-for="@Model.Commenter.Surname" placeholder="Last Name"
+                                                           class="form-control form-control-alternative">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    <input asp-for="@Model.Commenter.Email" placeholder="Email Address"
+                                                           class="form-control form-control-alternative">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <input asp-for="@Model.Commenter.Subject" placeholder="Subject"
+                                                       class="form-control form-control-alternative">
+                                            </div>
+                                        </div>
+                                        <div class="">
+                                            <div class="form-group">
+                                                <textarea asp-for="@Model.Commenter.Content" class="form-control form-control-alternative"
+                                                          placeholder="Comment" id="exampleFormControlTextarea1"></textarea>
+                                            </div>
+                                        </div>
+                                        <input hidden asp-for="@Model.Commenter.CourseId" value="@Model.CourseDetails.Id" />
+                                    </fieldset>
+
+                                    <button type="submit" class="button btn-1 reply">Rəy</button>
+                                    <div class="clearfix"></div>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 cours-detail-sidebar-all">
+                <div class="sidebar-get sidebar-background p-4 mb-5">
+                    <div class="sidebar-title">
+                        <h3 class="title">Get The Course</h3>
+                    </div>
+                    <div class="sidebar-get-list">
+                        <ul class="ps-0">
+                            <li class="mt-2 d-flex align-items-center">
+                                <div class="cours-detail-get-img">
+                                    <img src="~/assets/images/icons/get-the-course-icon-1.png"
+                                         alt="get-the-course-icon">
+                                </div>
+                                <p class="content">Instructor:</p><span>@Model.CourseDetails.Instructor.Name @Model.CourseDetails.Instructor.Surname</span>
+                            </li>
+                            <li class="mt-2 d-flex align-items-center">
+                                <div class="cours-detail-get-img">
+                                    <img src="~/assets/images/icons/get-the-course-icon-2.png"
+                                         alt="get-the-course-icon">
+                                </div>
+                                <p class="content">Lectures:</p><span>@Model.CourseDetails.Lectures</span>
+                            </li>
+                            <li class="mt-2 d-flex align-items-center">
+                                <div class="cours-detail-get-img">
+                                    <img src="~/assets/images/icons/get-the-course-icon-3.png"
+                                         alt="get-the-course-icon">
+                                </div>
+                                <p class="content">Duration:</p><span>@Model.CourseDetails.Duration</span>
+                            </li>
+                            <li class="mt-2 d-flex align-items-center">
+                                <div class="cours-detail-get-img">
+                                    <img src="~/assets/images/icons/get-the-course-icon-4.png"
+                                         alt="get-the-course-icon">
+                                </div>
+                                <p class="content">Enrolled:</p><span>@Model.CourseDetails.Enrolled</span>
+                            </li>
+                            <li class="mt-2 d-flex align-items-center">
+                                <div class="cours-detail-get-img">
+                                    <img src="~/assets/images/icons/get-the-course-icon-5.png"
+                                         alt="get-the-course-icon">
+                                </div>
+                                <p class="content">Language: </p><span>@Model.CourseDetails.Language</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <hr>
+                    <div class="select-column">
+                        
+                        <div class="cours-detail-get-pricing">
+                            <ul class=" d-flex">
+                                <li>
+                                    <i class="fas fa-dollar-sign"></i>
+                                    <p class="content">@Model.CourseDetails.NewPrice</p>
+                                </li>
+                                <li>
+                                    <p class="content">@Model.CourseDetails.NewDiscountPrice</p>
+                                </li>
+                                <li>
+                                    <i class="fas fa-dollar-sign"></i>
+                                    <p class="content">@Model.CourseDetails.OldPrice</p>
+                                    <span>@Model.CourseDetails.OldDiscountPrice</span>
+                                </li>
+                                <li>
+                                    <p class="content">@Model.CourseDetails.PricePercent</p><i class="fas fa-percent"></i> <span>off</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <a href="#" class="button btn-1">Start Learning Now</a>
+                    </div>
+                </div>
+                <div class="sidebar-related-all sidebar-background p-4">
+                    <div class="sidebar-title">
+                        <h3 class="title">Related Courses</h3>
+                    </div>
+
+                    @foreach (var rigthcousre in Model.Courses.OrderByDescending(o => o.CreatedDate).Take(4))
+                    {
+                        <div class="sidebar-related  d-flex mb-3 row">
+                            <div class="sidebar-related-img col-lg-4">
+                                @if (rigthcousre.MainImage != "")
+                                {
+                                     <a asp-controller="course" asp-action="coursedetails" asp-route-id="@rigthcousre.Id">
+                                          <img src="~/Uploads/@rigthcousre.MainImage" alt="recent-course-img" style="height:100%">
+                                     </a>
+                                }
+                                else
+                                {
+                                    <a asp-controller="course" asp-action="coursedetails" asp-route-id="@rigthcousre.Id">
+                                         <img src="~/assets/images/portfolio/recent-course-img-2.jpg" alt="recent-course-img" style="height:100%">
+                                     </a>
+                                }
+                            </div>
+                            <div class="sidebar-related-content col-lg-8">
+                                <a asp-controller="course" asp-action="coursedetails" asp-route-id="@rigthcousre.Id">
+                                    @Html.Raw(rigthcousre.Title != null && rigthcousre.Title.Length > 50 ? rigthcousre.Title.Substring(0, 50) + "..." : rigthcousre.Title)
+                                </a>
+                                <div class="sidebar-related-footer related-course d-flex">
+                                    <i class="fas fa-percent"></i>
+                                    <p class="content">@rigthcousre.NewPrice</p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </dvi>
+    </div>
+</section>
+

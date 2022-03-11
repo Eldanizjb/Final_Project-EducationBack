@@ -1,0 +1,109 @@
+﻿@model VmContact
+@inject AppDbContext _context
+
+@{
+    ViewData["Title"] = "Contact Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<!-- Preloader -->
+<!--!--!--section Intro--!--!--!-->
+<partial name="_BannerPartial" model="Model.Banner" />
+<!--!--!--section categories--!--!--!-->
+<section id="breadcrum" class="section-breadcrum">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4"></div>
+            <div class="col-lg-4 d-flex flex-wrap-nowrap justify-content-center">
+                <div class="banner-breadcrum ">
+                    <ul class="d-flex justify-content-center">
+                        <li><a asp-area="" asp-controller="Home" asp-action="Index" title="Home">Əsas səhifə</a></li>
+                        <li><i class="fa fa-angle-right" aria-hidden="true"></i></li>
+                        <li><a asp-controller="contact" asp-action="index" title="Contact">Haqqımızda</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-4"></div>
+        </div>
+    </div>
+</section>
+<section id="contact" class="section-contact mt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5 col-md-12 contact-left-side d-flex">
+                <div class="contact-box p-5">
+                    <h3 class="header">Bizimlə əlaqə</h3>
+                    <p class="content">
+                        İstənilən vaxt bizə zəng edin və ya bizə müraciət edin, biz iş günlərində 24 saat ərzində bütün sorğulara cavab
+                        verməyə çalışırıq. Suallarınızı cavablandırmaqdan məmnun olarıq.
+                    </p>
+                    <ul class="user-contact ps-0 pt-5">
+                        <li class="user-contact-list contact-address d-flex mb-3">
+                            <div class="user-contact-img">
+                                <img src="~/assets/images/icons/contact-location.png"
+                                     alt="">
+                            </div>
+                            <div class="user-contact-content">
+                                <h3 class="title">Ünvanımız:</h3>
+                                <p class="content">@(Model!=null && Model.Settings!=null? Model.Settings.Address:"")</p>
+                            </div>
+                        </li>
+                        <li class="user-contact-list contact-email d-flex mb-3">
+                            <div class="user-contact-img">
+                                <img src="~/assets/images/icons/contact-mail.png" alt="">
+                            </div>
+                            <div class="user-contact-content">
+                                <h3 class="title">Bizim email:</h3>
+                                <p class="content">@(Model!=null && Model.Settings!=null? Model.Settings.Email:"")</p>
+                            </div>
+                        </li>
+                        <li class="user-contact-list contact-phone d-flex mb-3">
+                            <div class="user-contact-img">
+                                <img src="~/assets/images/icons/contact-call.png" alt="">
+                            </div>
+                            <div class="user-contact-content">
+                                <h3 class="title">Telefon Nöm:</h3>
+                                <p class="content">@(Model!=null && Model.Settings!=null? Model.Settings.Phone:"")</p>
+                            </div>
+                        </li>
+                    </ul>
+                    <span class="contact-animation contact-animation--contact-1"></span>
+                    <span class="contact-animation contact-animation--contact-2"></span>
+                </div>
+            </div>
+            <div class="col-lg-7 col-md-12 contact-right-side">
+                <h2 class="headerBlue">Əlaqə saxlamaq</h2>
+                <h1 class="header">Başlamağa hazır ol</h1>
+                <div class="contact-submit-form">
+                    <form id="message" class="footer-subscribe-form" asp-controller="contact" asp-action="Message" method="post" data-id="7">
+                        <div class="form-box">
+                            <input type="text" name="FullName" class="form-input" placeholder="Full Name"
+                                   required="">
+                        </div>
+                        <div class="form-box">
+                            <input name="EmailAddress" class="form-input" placeholder="email@gmail.com"
+                                   required="">
+                        </div>
+                        <div class="form-box">
+                            <input name="PhoneNo" class="form-input" placeholder="Phone No."
+                                   required="">
+                        </div>
+                        <div class="form-box">
+                            <textarea type="text" name="Content" placeholder="Message..."></textarea>
+                        </div>
+                        <div class="form-box">
+                            <button type="submit" id="btn-message" class="button btn-1" title="Message" value="message">QEYDİYYAT</button>
+                        </div>
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<section id="contact-map" class="section-contact-map ">
+    <iframe src="@Model.Settings.LocationOnMap" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+</section>
+

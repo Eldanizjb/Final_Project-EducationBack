@@ -1,0 +1,312 @@
+﻿@model VmCourse
+@inject AppDbContext _context
+
+@{
+    ViewData["Title"] = "Course Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+
+<!--!--!--section Intro--!--!--!-->
+<partial name="_BannerPartial" model="Model.Banner" />
+<!--!--!--section categories--!--!--!-->
+<section id="breadcrum" class="section-breadcrum">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4"></div>
+            <div class="col-lg-4 d-flex flex-wrap-nowrap justify-content-center">
+                <div class="banner-breadcrum ">
+                    <ul class="d-flex justify-content-center">
+                        <li><a asp-area="" asp-controller="Home" asp-action="Index" title="Home">Əsas səhifə</a></li>
+                        <li><i class="fa fa-angle-right" aria-hidden="true"></i></li>
+                        <li><a asp-controller="course" asp-action="index" title="About Us">Kurslar</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-4"></div>
+        </div>
+    </div>
+</section>
+<!--!--!--section courses lists--!--!--!-->
+<section id="courses-page" class="courses-list pt-5 .bg-gradient-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-12 sidebar-all courses-sidebar-all">
+                <div class="sidebar-search mb-4">
+                    <div class="sidebar-form">
+                        <form method="get" asp-controller="course" asp-action="index">
+                            <div class="form-group search-group">
+                                <input type="text" asp-for="@Model.Search.searchData" value="" placeholder="Search..." required>
+                                <input asp-for="@Model.Search.catId" hidden />
+                                <input asp-for="@Model.Search.tagId" hidden />
+                                <input asp-for="@Model.Search.page" hidden />
+                                <button type="submit"><span class="icon fa fa-search"></span></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="sidebar-categories sidebar-background ">
+                    <div class="sidebar-title">
+                        <h3 class="title">Kateqoriyalar</h3>
+                    </div>
+                    <div class="sidebar-content">
+                        <ul class="sidebar-list">
+                            @foreach (var courscat in Model.CourseCategories)
+                            {
+                                <li style="@(courscat.Id == Model.Search.catId ? "background-color: #ff5219 !important;" : "")">
+                                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                    <a asp-controller="course" asp-action="index" asp-route-catId="@courscat.Id">
+                                        @courscat.Name (@courscat.CourseCategoryToCourses.Count)
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+                <div class="sidebar-price sidebar-background">
+                    <div class="sidebar-title">
+                        <h3 class="title">Satış filtiri</h3>
+                    </div>
+                    <div class="sidebar-content">
+                        <ul class="sidebar-list">
+                            <li><i class="fa fa-angle-right" aria-hidden="true"></i><a asp-controller="course" asp-action="index" asp-route-one="true">$0 - $40 </a></li>
+                            <li><i class="fa fa-angle-right" aria-hidden="true"></i><a asp-controller="course" asp-action="index" asp-route-two="true">$40 - $80 </a></li>
+                            <li><i class="fa fa-angle-right" aria-hidden="true"></i><a asp-controller="course" asp-action="index" asp-route-three="true">$80 - $5000 </a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="sidebar-skill sidebar-background">
+                    <div class="sidebar-title">
+                        <h3 class="title">Tədris səviyyəsi</h3>
+                    </div>
+                    <div class="sidebar-content">
+                        <ul class="sidebar-list">
+                            @foreach (var courslev in Model.CourseLevels)
+                            {
+                                <li style="@(courslev.Id==Model.Search.levId?"background-color: #ff5219 !important;":"")">
+                                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                    <a asp-controller="course" asp-action="index" asp-route-catId="@courslev.Id" asp-route-tagId="@Model.Search.tagId" asp-route-searchData="@Model.Search.searchData" asp-route-page="@Model.Search.page" style="@(courslev.Id==Model.Search.catId?"background-color: #ff5219 !important;":"")">
+                                        @courslev.Name (@courslev.Courses.Count)
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+                <div class="sidebar-list sidebar-background">
+                    <div class="sidebar-title">
+                        <h3 class="title">Məzunların siyahısı</h3>
+                    </div>
+                    <a asp-area="" asp-controller="Students" asp-action="Index" class="button btn-1">Siyahı</a>
+                </div>
+
+            </div>
+            <div class="col-lg-8 col-md-12 courses-list-boxs">
+                <div class="courses-list-sorting courses-background ">
+                    <div class="content-side">
+                        <!--Shop Single-->
+                        <div class="education-section">
+                            <!--Sort By-->
+                            <div class="items-sorting ">
+                                <div class="row clearfix">
+                                    <div class="results-column col-lg-8 d-flex align-items-end">
+
+                                        <h4>
+                                            Siyahı @(((ViewBag.Page-1)* ViewBag.itemCount) +1) - @if (ViewBag.AllCount < (ViewBag.Page * ViewBag.itemCount))
+                                            {
+                                                @ViewBag.AllCount
+                                            }
+                                            else
+                                            {
+                                                @(ViewBag.Page* ViewBag.itemCount)
+                                            } of
+                                            @ViewBag.AllCount
+                                        </h4>
+                                    </div>
+                                    <div class="dropdown col-lg-4 d-flex align-items-end">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Sıralama</button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                            <li><a class="dropdown-item" asp-controller="Course" asp-action="Index" asp-route-date="true">Tarixə görə</a></li>
+                                            <li><a class="dropdown-item" asp-controller="Course" asp-action="Index" asp-route-name="true">Ada görə</a></li>
+                                            <li><a class="dropdown-item" asp-controller="Course" asp-action="Index" asp-route-price="true">Qiymətə görə</a></li>
+                                        </ul>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="courses-list pt-3">
+                    <div class="row">
+                        @foreach (var course in Model.Courses)
+                        {
+                            <div class="col-lg-6  col-sm-12 pb-3">
+                                <div class="card card-home course-full">
+                                    <div class="img-section">
+                                        @if (course.MainImage != "")
+                                        {
+                                            <a asp-controller="course" asp-action="index" asp-route-id="@course.Id">
+                                                <img src="~/Uploads/@course.MainImage" class="card-img-top" alt="course-1.jpg">
+                                                @foreach (var item in course.CourseCategoryToCourses)
+                                                {
+                                                    <button asp-controller="course" asp-action="index" asp-route-catId="@item.CourseCategoryId" class="btn card-btn cbtn-2">@item.CourseCategory.Name</button>
+                                                }
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <a asp-controller="course" asp-action="coursedetails" asp-route-id="@course.Id">
+                                                <img src="~/assets/images/portfolio/course-1.jpg" class="card-img-top" alt="course-1.jpg">
+                                                @foreach (var item in course.CourseCategoryToCourses)
+                                                {
+                                                    <button asp-controller="course" asp-action="index" asp-route-catId="@item.CourseCategoryId" class="btn card-btn cbtn-2" style="@(item.Id==Model.Search.catId?"background-color: #ff5219 !important;":"")">@item.CourseCategory.Name</button>
+                                                }
+                                            </a>
+                                        }
+                                    </div>
+                                    <div class="card-body p-2">
+                                        <h3 class="card-title" href="#">
+                                            <a asp-controller="course" asp-action="coursedetails" asp-route-id="@course.Id"> @course.Title </a>
+                                        </h3>
+                                        <div class=" row teacher-course d-flex  ">
+                                            <div class="col-lg-8 col-sm-8  teacher d-flex">
+
+                                                @if (@course.Instructor.MainImage != "")
+                                                {
+                                                    <a asp-controller="course" asp-action="coursedetails" asp-route-id="@course.Id">
+                                                        <img src="~/uploads/@course.Instructor.MainImage" alt="">
+                                                    </a>
+                                                }
+                                                else
+                                                {
+                                                    <a asp-controller="course" asp-action="coursedetails" asp-route-id="@course.Id">
+                                                        <img src="~/assets/images/instructors/course-instructor-img.jpg" alt="">
+                                                    </a>
+                                                }
+                                                <p class="users pt-2"> @course.Instructor.Name @course.Instructor.Surname</p>
+
+                                            </div>
+                                            <div class=" col-lg-4 col-sm-4 teacher-star d-flex justify-content-end">
+                                                <a id="rating_value" asp-controller="instructor" asp-action="instructordetails" asp-route-id="@course.Instructor.Id" class="d-flex align-items-center" >
+                                                    <form action="">
+                                                        <input class="star star-5" id="star-5" data-id="5" type="radio" name="star" />
+                                                        <label class="star star-5"  style="color: #ff5219 !important " for="star-5"></label>
+                                                    </form>
+                                                    @{
+                                                        if (course.Instructor.InstructorRaitings.Count > 0)
+                                                        {
+                                                            var rval2 = course.Instructor.InstructorRaitings;
+                                                            var fiveS = 0;
+                                                            var fourS = 0;
+                                                            var threeS = 0;
+                                                            var twoS = 0;
+                                                            var oneS = 0;
+                                                            for (var rs = 0; rs < rval2.Count; rs++)
+                                                            {
+
+
+                                                                for (var str = 0; str < rval2.Count; str++)
+                                                                {
+                                                                    if (rval2[str].Star == 5)
+                                                                    {
+                                                                        fiveS++;
+                                                                    }
+                                                                    else if (rval2[str].Star == 4)
+                                                                    {
+                                                                        fourS++;
+                                                                    }
+                                                                    else if (rval2[str].Star == 3)
+                                                                    {
+                                                                        threeS++;
+                                                                    }
+                                                                    else if (rval2[str].Star == 2)
+                                                                    {
+                                                                        twoS++;
+                                                                    }
+                                                                    else if (rval2[str].Star == 1)
+                                                                    {
+                                                                        oneS++;
+                                                                    }
+                                                                }
+
+                                                            }
+
+                                                            decimal sum = (fiveS * 5) + (fourS * 4) + (threeS * 3) + (twoS * 2) + (oneS * 1);
+                                                            decimal rSum = fiveS + fourS + threeS + twoS + oneS;
+                                                            var sumRsum = Math.Round((sum / rSum), 1, MidpointRounding.ToEven);
+
+                                                            if (sumRsum != 0)
+                                                            {
+                                                                @("("+ sumRsum.ToString("F1")+")");
+                                                            }
+                                                            else
+                                                            {
+                                                                @("(0.0)");
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            @("(0.0)");
+                                                        }
+                                                    }
+                                                </a>
+
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row course-counts pt-2">
+                                            <div class="col-lg-6 col-sm-6  course-pricing">
+                                                <i class="bi bi-currency-dollar"></i>
+                                                <p class="dollar">@course.NewPrice</p>
+                                            </div>
+                                            <div class="col-lg-6 col-sm-6  course-admin d-flex justify-content-end">
+                                                <i class="bi bi-person-circle"></i>
+                                                <span class="all-counts">@course.Students.Count</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        <div class="pagination">
+                            <div class="row">
+                                <div class="col-12 d-flex justify-content-center align-items-center">
+                                    <ul class="pagination-list mt-3 justify-content-center pagination-style">
+                                        <li class="pagination-item  @(ViewBag.Page==1?"disabled":"")">
+                                            <a asp-controller="course" asp-action="index" asp-route-page="@(ViewBag.Page-1) class="pagination-item-link">
+                                                <i class="fa fa-angle-left"
+                                                   aria-hidden="true"></i>
+                                            </a>
+                                        </li>
+
+                                        @for (int i = 0; i < ViewBag.PageCount; ++i)
+                                        {
+
+                                            <li class="pagination-item  @(ViewBag.Page==(i+1)?"active":"")">
+                                                <a class="pagination-item-link" asp-controller="course" asp-action="index" asp-route-page="@(i+1)">@(i+1)</a>
+                                            </li>
+
+                                        }
+                                        <li class="pagination-item  @(ViewBag.Page==ViewBag.PageCount?"disabled":"")">
+                                            <a asp-controller="course" asp-action="index" asp-route-page="@(ViewBag.Page+1)" class="pagination-item-link">
+                                                <i class="fa fa-angle-right"
+                                                   aria-hidden="true"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</section>
+

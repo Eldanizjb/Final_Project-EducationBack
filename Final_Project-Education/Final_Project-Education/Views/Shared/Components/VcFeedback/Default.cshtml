@@ -1,0 +1,54 @@
+﻿@model List<Feedback>
+@{
+    Layout = null;
+}
+
+<!--!--!--section testimonial--!--!--!-->
+<section id="testimonial" class="section-testimonial bg-light mb-5 mt-5">
+    <div class="container testimonial-all">
+        <div class="row">
+            <div class="col-lg-6 testimonial-left">
+                <h2 class="headerBlue"> Partnyorlarımızın rəyləri</h2>
+                <h1 class="header">Partnyorlarımızın və nəzunlarımızın Academiya haqqında dedikləri </h1>
+                <p class="content">
+                    Code Camp Baku bizə yalnız proqramlaşdırma öyrətmədi, həm də böyük bir həyat dərsi verdi. 
+                    Risk etməkdən və xəyallarınızı izləməkdən qorxmayın. Heç vaxt gec deyil!
+                </p>
+            </div>
+            <div class="col-lg-6 testimonial-right">
+                <div class="slideTestimonial owl-carousel owl-theme">
+                    @foreach (var testimoni in Model)
+                    {
+                        <div class="slideTestimonial-item bg-white mb-5 mt-5 p-3">
+                            <p class="content">
+                                @Html.Raw(testimoni.Content)
+                            </p>
+                            <div class="row">
+                                <div class="col-lg-4 d-flex flex-direction-column align-items-center">
+                                    <div class="testimonial-img d-flex flex-direction-column justify-content-center align-items-center">
+                                        @if (testimoni.Image != "")
+                                        {
+
+                                            <img src="~/Uploads/@testimoni.Image" alt="">
+                                        }
+                                        else
+                                        {
+                                            <img src="~/assets/images/testimoials/client-1.jpg" alt="">
+                                        }
+                                    </div>
+                                </div>
+                                <div class="col-lg-8">
+                                    <div class="testimonial-content">
+                                        <h3 class="title">@(testimoni.Fullname!= null? testimoni.Fullname:"")</h3>
+                                        <p class="content">@(testimoni.Position!= null? testimoni.Position:"")</p>
+                                        <img src="~/assets/images/icons/quote.png" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

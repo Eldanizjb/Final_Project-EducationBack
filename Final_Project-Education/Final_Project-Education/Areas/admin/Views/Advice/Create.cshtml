@@ -1,0 +1,36 @@
+﻿@model Advice
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<!-- partial -->
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="card-title">Create Advice Page</h1>
+
+                        <form class="forms-sample" asp-area="admin" asp-controller="Advice" asp-action="Create" method="post">
+                            <div asp-validation-summary="All" class="text-danger"></div>
+                            <div class="form-group">
+                                <label asp-for="@Model.Content" class="form-label">Advice</label>
+                                <textarea class="form-control" asp-for="@Model.Content"></textarea>
+                                <span asp-validation-for="@Model.Content" class="text-danger"></span>
+                            </div>
+                            <button type="submit" class="btn btn-primary mr-2">Create</button>
+                            <a asp-area="admin" asp-controller="Advice" asp-action="Index" class="btn btn-light">Back to list</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- main-panel ends -->
+
+

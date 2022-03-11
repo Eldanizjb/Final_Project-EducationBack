@@ -1,0 +1,70 @@
+﻿@model Blog
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<!-- partial -->
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="card-title">Create Blog Page</h1>
+                        <form class="forms-sample" asp-area="admin" asp-controller="Blog" asp-action="Create" method="post" enctype="multipart/form-data">
+                            <div asp-validation-summary="All" class="text-danger"></div>
+                            <div class="form-group">
+                                <label asp-for="@Model.MainImageFile" class="form-label">MainImageFile</label>
+                                <input class="form-control" asp-for="@Model.MainImageFile">
+                                <span asp-validation-for="@Model.MainImageFile" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.Title" class="form-label">Title</label>
+                                <input class="form-control" asp-for="@Model.Title">
+                                <span asp-validation-for="@Model.Title" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.CreatedDate" class="form-label">CreatedDate</label>
+                                <input class="form-control" asp-for="@Model.CreatedDate">
+                                <span asp-validation-for="@Model.CreatedDate" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <label asp-for="@Model.Content">Content</label>
+                                    <textarea asp-for="@Model.Content" class="form-control" id="exampleTextarea1" rows="4"></textarea>
+                                    <span asp-validation-for="@Model.Content" class="form-text text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.BlogCategoryId" class="form-label">Category</label>
+                                <select class="form-control mb-3" aria-label="Default select example" asp-for="@Model.BlogCategoryId">
+                                    <option selected>Select category</option>
+                                    @foreach (var category in ViewBag.BlogCategory)
+                                    {
+                                        <option value="@category.Id">@category.Name</option>
+                                    }
+                                </select>
+                                <span asp-validation-for="@Model.BlogCategoryId" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.TagToBlogsId" class="form-label">Tags</label>
+                                <select class="form-control mb-3 selectTwo" aria-label="Default select example" multiple="multiple" asp-for="@Model.TagToBlogsId">
+                                    @foreach (var item in ViewBag.Tag)
+                                    {
+                                        <option value="@item.Id">@item.Name</option>
+                                    }
+                                </select>
+                                <span asp-validation-for="@Model.TagToBlogsId" class="text-danger"></span>
+                            </div>
+                            <button type="submit" class="btn btn-primary mr-2">Create</button>
+                            <a asp-area="admin" asp-controller="Blog" asp-action="Index" class="btn btn-light">Back to list</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

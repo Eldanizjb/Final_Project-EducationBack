@@ -1,0 +1,147 @@
+﻿@model VmEvent
+
+@{
+    ViewData["Title"] = "Event Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+
+
+<!--!--!--section Intro--!--!--!-->
+<partial name="_BannerPartial" model="Model.Banner" />
+<!--!--!--section categories--!--!--!-->
+<section id="breadcrum" class="section-breadcrum">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4"></div>
+            <div class="col-lg-4 d-flex flex-wrap-nowrap justify-content-center">
+                <div class="banner-breadcrum ">
+                    <ul class="d-flex justify-content-center">
+                        <li><a asp-area="" asp-controller="Home" asp-action="Index" title="Home">Home</a></li>
+                        <li><i class="fa fa-angle-right" aria-hidden="true"></i></li>
+                        <li><a asp-area="" asp-controller="Event" asp-action="Index" title="Events">Tədbirlər</a></li>
+                        <li><i class="fa fa-angle-right" aria-hidden="true"></i></li>
+                        <li><a asp-controller="event" asp-action="eventdetails" title="Events Detail">Ətraflı</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-4"></div>
+        </div>
+    </div>
+</section>
+<!--!--!--section event detail--!--!--!-->
+<section id="event-detail" class="section-event-detail pt-5 .bg-gradient-light">
+    <div class="container">
+        <dvi class="row">
+            <div class="col-lg-8 event-detail-list-boxs">
+                <div class="event-detail-header">
+                    <h3 class="title">İ.tirakçı olun bacarıqları öyrənin..</h3>
+                    <div class="event-detail-about-instructor d-flex">
+                        <div class="row">
+                            <div class=" col-lg-1 event-detail-instructor-img teacher d-flex">
+                                <img src="~/Uploads/@Model.EventDetails.Instructor.MainImage" alt="">
+                            </div>
+                            <div class=" col-lg-2 col-md-12 col-1 event-detail-instructor">
+                                <h3 class="title">@Model.EventDetails.Instructor.Name @Model.EventDetails.Instructor.Surname</h3>
+                                <p class="content">Instructor</p>
+                            </div>
+                            <div class="col-lg-3 col-md-11 event-detail-update">
+                                <h3 class="title" style="text-transform: capitalize;">@Model.EventDetails.CreatedDate.ToString("MMMM d, yyyy")</h3>
+                                <p class="content">Last Update</p>
+                            </div>
+                            <div class="col-lg-3 col-md-12 event-detail-location">
+                                <h3 class="title">@Model.EventDetails.Address</h3>
+                                <p class="content">Event Location</p>
+                            </div>
+                            <div class="col-lg-3 col-md-12 event-detail-date">
+                                <h3 class="title">@Model.EventDetails.WorkTime</h3>
+                                <p class="content">Event Time</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="event-detail-content pt-3">
+                    <div class="row">
+                        <div class="col-lg-12 pb-3">
+                            <div class="event-detail-img">
+                                <img src="~/Uploads/@Model.EventDetails.MainImage" class="card-img-top"
+                                     alt="course-1.jpg" style="width:100%">
+                            </div>
+                            <div class="event-detail-body p-2">
+                                <h3 class="card-title" href="#">@Model.EventDetails.Title</h3>
+                                <p class="content">
+                                    @Html.Raw(Model.EventDetails.Content)
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 event-detail-all-tags">
+                <div class="event-get sidebar-background p-4 mb-5">
+                    <div class="select-column">
+                        <div class="get-pricing">
+                            <ul class=" d-flex">
+                                <li>
+                                    <i class="fas fa-dollar-sign"></i>
+                                    <p class="title">50</p>
+                                </li>
+                                <li>
+                                    <p class="title">usd</p>
+                                </li>
+                                <li>
+                                    <i class="fas fa-dollar-sign"></i>
+                                    <p class="content">100</p>
+                                    <span>usd</span>
+                                </li>
+                                <li>
+                                    <p class="content">50</p><i class="fas fa-percent"></i> <span>off</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <a href="#" class="button btn-1">Start Learning Now</a>
+                    </div>
+                </div>
+                <div class="sidebar-related-all sidebar-background p-4">
+                    <div class="sidebar-title">
+                        <h3 class="title">Related Events</h3>
+                    </div>
+
+                    @foreach (var rigthblog in Model.Events.OrderByDescending(o => o.CreatedDate).Take(4))
+                    {
+                        <div class="sidebar-related  d-flex mb-3">
+                            <div class="sidebar-related-img">
+                                @if (rigthblog.MainImage != "")
+                                {
+                                    <a asp-controller="blog" asp-action="index" asp-route-id="@rigthblog.Id">
+                                        <img src="~/Uploads/@rigthblog.MainImage" alt="">
+                                    </a>
+                                }
+                                else
+                                {
+                            <a asp-controller="blog" asp-action="index" asp-route-id="@rigthblog.Id">
+                                <img src="~/Uploads/@Model.EventDetails.MainImage" alt="recent-event-img">
+                            </a>}
+
+                            </div>
+                            <div class="sidebar-related-content">
+                                <a asp-controller="blog" asp-action="index" asp-route-id="@rigthblog.Id">
+                                    @Html.Raw(rigthblog.Content != null && rigthblog.Content.Length > 150 ? rigthblog.Content.Substring(0, 150) + "..." : rigthblog.Content)
+                                </a>
+                                <div class="sidebar-related-footer relaited-blog d-flex">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    <p class="content" style="text-transform: capitalize;">@rigthblog.CreatedDate.ToString("MMMM dd, yyyy")</p>
+                                    <p class="content">@rigthblog.Address</p>
+                                </div>
+
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </dvi>
+    </div>
+</section>
+

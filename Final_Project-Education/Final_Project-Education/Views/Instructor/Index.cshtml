@@ -1,0 +1,108 @@
+﻿@model VmInstructor
+
+@{
+    ViewData["Title"] = "Instructor Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+
+<!--!--!--section Intro--!--!--!-->
+<partial name="_BannerPartial" model="Model.Banner" />
+<!--!--!--section categories--!--!--!-->
+<section id="breadcrum" class="section-breadcrum">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4"></div>
+            <div class="col-lg-4 d-flex flex-wrap-nowrap justify-content-center">
+                <div class="banner-breadcrum ">
+                    <ul class="d-flex justify-content-center">
+                        <li><a asp-area="" asp-controller="Home" asp-action="Index" title="Home">Əsas səhifə</a></li>
+                        <li><i class="fa fa-angle-right" aria-hidden="true"></i></li>
+                        <li><a asp-controller="instructor" asp-action="index" title="Instructor">Müəllimlər</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-4"></div>
+        </div>
+    </div>
+</section>
+<!--!--!--section instructor lists--!--!--!-->
+
+<section id="instructors" class="section-instructors">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 instructor-box-header">
+                <div class="instructor-box-img">
+                    <img src="~/assets/images/portfolio/instructor-detail-img.jpg" alt="">
+                </div>
+                <div class="instructor-box-about">
+                    <h3 class="title">Təlimatçı Qrupumuzun üzvləri ilə tanış olun</h3>
+                    <p class="content">Əgər bizim "gizli tarifimiz" olsaydı, bu, bizim möhtəşəm tələbələrimiz olardı.</p>
+                </div>
+            </div>
+            <div class="col-lg-12 instructor-box-title">
+                <h2 class="headerBlue"> Əla Təimçilər</h2>
+                <h1 class="header">Ən yaxşı müəllimlərimiz </h1>
+            </div>
+            @foreach (var instruct in Model.Instructors)
+            {
+                <div class="col-lg-3 col-md-3 col-sm-6 col-12 card-instructors_item" data-aos="fade-up" data-aos-once="true"
+                     data-aos-duration="1000" data-aos-delay="0">
+                    <div class="card-instructors">
+                        <div class="expert-img">
+                            @if (instruct.MainImage != "")
+                            {
+                                
+                                    <img src="~/Uploads/@instruct.MainImage" alt="">
+                            }
+                           
+                            <ul class="socials d-flex justify-content-center">
+                                @foreach (var inssosial in instruct.InstructorToSocials)
+                                {
+                                    <li><a href="@inssosial.InstructorSocial.Link" class="instructorSosials" title="@inssosial.InstructorSocial.Name"><i class="@inssosial.InstructorSocial.Icon"></i></a></li>
+                                }
+                            </ul>
+                        </div>
+                        <div class="card-body">
+                            <a asp-controller="instructor" asp-action="instructordetails" asp-route-id="@instruct.Id">
+                                <h3 class="card-title">@(instruct.Name!= null? instruct.Name:"") @(instruct.Surname!= null? instruct.Surname : "")</h3>
+                            </a>
+                            <span class="card-text">@(instruct.Position!= null? instruct.Position : "") </span>
+                        </div>
+                    </div>
+                </div>
+            }
+            <div class="pagination">
+                <div class="row">
+                    <div class="col-12 d-flex justify-content-center align-items-center">
+                        <ul class="pagination-list mt-3 justify-content-center pagination-style">
+                            <li class="pagination-item  @(ViewBag.Page==1?"disabled":"")">
+                                <a asp-controller="Instructor" asp-action="index" asp-route-page="@(ViewBag.Page-1) class="pagination-item-link">
+                                    <i class="fa fa-angle-left"
+                                       aria-hidden="true"></i>
+                                </a>
+                            </li>
+
+                            @for (int i = 0; i < ViewBag.PageCount; ++i)
+                            {
+
+                                <li class="pagination-item  @(ViewBag.Page==(i+1)?"active":"")">
+                                    <a class="pagination-item-link" asp-controller="Instructor" asp-action="index" asp-route-page="@(i+1)">@(i+1)</a>
+                                </li>
+
+                            }
+                            <li class="pagination-item  @(ViewBag.Page==ViewBag.PageCount?"disabled":"")">
+                                <a asp-controller="Instructor" asp-action="index" asp-route-page="@(ViewBag.Page+1)" class="pagination-item-link">
+                                    <i class="fa fa-angle-right"
+                                       aria-hidden="true"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+</section>
+

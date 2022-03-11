@@ -1,0 +1,45 @@
+﻿@model Banner
+
+@{
+    ViewData["Title"] = "BannerDetail";
+    Layout = "~/Areas/admin/Views/Shared/_Layout.cshtml";
+}
+
+
+@{
+    if (TempData["BannerError"] != null)
+    {
+        <div class="alert alert-success">
+            <p class="text-danger">@(TempData["BannerError"] as string)</p>
+        </div>
+        TempData["BannerError"] = null;
+    }
+}
+
+<!-- partial -->
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        
+                        <div class="form-group">
+                            <h1 class="card-title" style="color:darkred">Title</h1>
+                            <p class="form-label">@Model.Title</p>
+                        </div>
+                        <div class="form-group">
+                            <h1 class="card-title" style="color:darkred">Page</h1>
+                            <p class="form-label">@Model.Page</p>
+                        </div>
+                       
+                        <a class="btn btn-success" asp-area="admin" asp-controller="Banner" asp-action="Update" asp-route-id="@Model.Id">Update</a>
+                        <a class="btn btn-danger" asp-area="admin" asp-controller="Banner" asp-action="Delete" asp-route-id="@Model.Id" onclick="return confirm('Silinməsinə əminsənmi?')">Delete</a>
+                        <a class="btn btn-secondary" asp-area="admin" asp-controller="Banner" asp-action="Index"> Back to list</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

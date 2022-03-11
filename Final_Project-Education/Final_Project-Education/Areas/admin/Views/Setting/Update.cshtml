@@ -1,0 +1,98 @@
+﻿@model Setting
+
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Areas/admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<!-- partial -->
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="card-title">Update Setting Page</h1>
+                        <form class="forms-sample" asp-area="admin" asp-controller="Setting" asp-action="Update" method="post" enctype="multipart/form-data">
+                            <div asp-validation-summary="All" class="text-danger"></div>
+                            <div class="form-group">
+                                <label asp-for="@Model.LogoFile" class="form-label">Logo</label>
+                                <input class="form-control file-upload-info btn btn-danger" asp-for="@Model.LogoFile">
+                                <span asp-validation-for="@Model.LogoFile" class="text-danger "></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.BannerImageFile" class="form-label">BannerImage</label>
+                                <input class="form-control" asp-for="@Model.BannerImageFile">
+                                <span asp-validation-for="@Model.BannerImageFile" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.BannerImageBackFile" class="form-label">BannerImageBack</label>
+                                <input class="form-control" asp-for="@Model.BannerImageBackFile">
+                                <span asp-validation-for="@Model.BannerImageBackFile" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.EventImageFile" class="form-label">EventImage</label>
+                                <input class="form-control" asp-for="@Model.EventImageFile">
+                                <span asp-validation-for="@Model.EventImage" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.FeatureImageFile" class="form-label">FeatureImage</label>
+                                <input class="form-control" asp-for="@Model.FeatureImageFile">
+                                <span asp-validation-for="@Model.FeatureImageFile" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.Address" class="form-label">Address</label>
+                                <input class="form-control" asp-for="@Model.Address">
+                                <span asp-validation-for="@Model.Address" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.LocationOnMap" class="form-label">Map</label>
+                                <input class="form-control" asp-for="@Model.LocationOnMap">
+                                <span asp-validation-for="@Model.LocationOnMap" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.Phone" class="form-label">Phone</label>
+                                <input class="form-control" asp-for="@Model.Phone">
+                                <span asp-validation-for="@Model.Phone" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.Email" class="form-label">Email</label>
+                                <input class="form-control" asp-for="@Model.Email">
+                                <span asp-validation-for="@Model.Email" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.ContactInfo" class="form-label">ContactInfo</label>
+                                <textarea id="editor" class="form-control" asp-for="@Model.ContactInfo" rows="12"></textarea>
+                                <span asp-validation-for="@Model.ContactInfo" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.Title" class="form-label">Title</label>
+                                <input class="form-control" asp-for="@Model.Title">
+                                <span asp-validation-for="@Model.Title" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.SupTitle" class="form-label">SupTitle</label>
+                                <input class="form-control" asp-for="@Model.SupTitle">
+                                <span asp-validation-for="@Model.SupTitle" class="text-danger"></span>
+                            </div>
+                            <input class="form-control" type="hidden" asp-for="@Model.Id">
+                            <input type="hidden" asp-for="@Model.Logo" />
+                            <input type="hidden" asp-for="@Model.BannerImageBack" />
+                            <input type="hidden" asp-for="@Model.EventImage" />
+                            <input type="hidden" asp-for="@Model.FeatureImage" />
+                            <button type="submit" class="btn btn-primary mr-2">Update</button>
+                            <a asp-area="admin" asp-controller="Setting" asp-action="Index" class="btn btn-light">Back to list</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- main-panel ends -->
+
+
+
+
+

@@ -1,0 +1,600 @@
+﻿@model VmHome
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+
+<!--!--!--section Intro--!--!--!-->
+<section id="banner" class=" section-banner  index home">
+    <span class="animation animation-1">
+        <img src="~/assets/images/animations/shape-1.png" alt="">
+    </span>
+    <span class="animation animation-2">
+        <img src="~/assets/images/animations/shape-2.png" alt="">
+    </span>
+    <span class="animation animation-3">
+        <img src="~/assets/images/animations/shape-3.png" alt="">
+    </span>
+    <span class="animation animation-4">
+        <img src="~/assets/images/animations/shape-4.png" alt="">
+    </span>
+
+    <div class="container">
+        <div class="row">
+            <div class=" col-lg-6 col-md-12 intro d-flex flex-column justify-content-center">
+                <h2 class="headerBlue">Saytımıza xoş gəlmişsiniz!</h2>
+                <h1 class="header">
+                    @Model.Settings.Title<img src=" assets/images/icons/banner-line.png" alt="">
+                </h1>
+                <p class=" intro3 mb-5">
+                    @Model.Settings.SupTitle
+                </p>
+                <div class="intro_buttons mt-5">
+                    <a asp-area="" asp-controller="Course" asp-action="Index" class="button btn-1">Kurslarımız</a>
+                    <a asp-area="" asp-controller="About" asp-action="Index" class="button btn-2">Əlaqə</a>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12 intros d-flex flex-column justify-content-center">
+                <div class="banner-img">
+                    <img src="~/assets/images/arts/banner-img.png" alt="banner-img">
+                </div>
+                <div class="banner-img-bg">
+                    <a href="#">
+                        <img src="~/assets/images/icons/banner-img-bg.png" alt="banner-img-bg">
+                    </a>
+                </div>
+                <div class="banner-light">
+                    <a asp-area="" asp-controller="Faq" asp-action="Index"><img src="~/assets/images/animations/banner-aliment-icon-4.png" alt="banner-aliment-icon-4"></a>
+                </div>
+                <a asp-area="" asp-controller="Students" asp-action="Index">
+                    <dl class="row bg-white linkbutton lbtn-1">
+                        <dt class="col-lg-2 col-sm-2 col-2 circle">
+                            <div class="lbtn-img img1">
+                                <img src="~/assets/images/icons/banner-aliment-icon-1.png"
+                                     class="rounded float-start" alt="banner-aliment-icon">
+                            </div>
+                        </dt>
+                        <dd class="col-lg-10 col-sm-10 col-10">
+                            <h3 class="title">Uğurlarımız</h3>
+                            <span>Məzunların siyahısı</span>
+                        </dd>
+                    </dl>
+                </a>
+                <a asp-area="" asp-controller="Course" asp-action="Index">
+                    <dl class="row bg-white linkbutton lbtn-2">
+                        <dt class="col-lg-2 col-sm-2 col-2 circle">
+                            <div class="lbtn-img img2">
+                                <img src="~/assets/images/icons/banner-aliment-icon-2.png"
+                                     class="rounded float-start" alt="banner-aliment-icon">
+                            </div>
+                        </dt>
+                        <dd class="col-lg-10 col-sm-10 col-10">
+                            <h3 class="title">@Model.Courses.Count</h3>
+                            <span>Kurslarımız</span>
+                        </dd>
+                    </dl>
+                </a>
+                <a asp-area="" asp-controller="Course" asp-action="Index">
+                    <dl class="row bg-white linkbutton lbtn-3">
+                        <dt class="col-lg-2 col-sm-2 col-2 circle">
+                            <div class="lbtn-img img3">
+                                <img src="~/assets/images/icons/banner-aliment-icon-3.png"
+                                     class="rounded float-start" alt="banner-aliment-icon">
+                            </div>
+                        </dt>
+                        <dd class="col-lg-10 col-sm-10 col-10">
+                            <h3 class="title">@Model.Students.Count</h3>
+                            <span>Tələbələrimiz</span>
+                        </dd>
+                    </dl>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+<!--!--!--section categories--!--!--!-->
+<section id="categories" class="section-categories mt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="headerBlue">Kurs növləri</h2>
+            </div>
+            <div class="col-lg-12 col-md-12 mb-5">
+                <h1 class="header">Məhşur Kursları araşdırın</h1>
+            </div>
+            @foreach (var co in Model.CourseCategories)
+            {
+                <div class="col-lg-4 col-md-6 col-sm-12 ">
+                    <a asp-controller="course" asp-action="index" asp-route-catId="@co.Id">
+                        <dl class="row categorybutton m-1">
+                            <dt class="col-lg-3 col-sm-3 col-3">
+                                <div class="lbtn-img">
+                                    <img src="~/Uploads/@co.Image"
+                                         class="rounded d-flex flex-column justify-content-center" alt="banner-aliment-icon">
+                                    <img src="~/Uploads/@co.ImageBack"
+                                         class="float-start d-flex flex-column justify-content-center" alt="banner-aliment-icon">
+                                </div>
+                            </dt>
+                            <dd class="col-lg-9 col-sm-9 col-9">
+                                <h3 class="title">@co.Name</h3>
+                                <span>@co.Title</span>
+                            </dd>
+                        </dl>
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+<!--!--!--section about us--!--!--!-->
+<section id="about" class=" section-about mb-5 mt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-12 intros mr-5 ">
+                <div class="about-img">
+                    <img src="~/Uploads/@Model.Abouts.FirstOrDefault().Image" alt="about-img">
+                </div>
+                <div class="about-img-bg">
+                    <img src="~/Uploads/@Model.Abouts.FirstOrDefault().ImageBack" alt="about-img-bg">
+                </div>
+                <a asp-area="" asp-controller="Students" asp-action="Index">
+                    <dl class="row bg-white linkbutton lbtn-1">
+                        <dt class="col-lg-2 col-sm-2 col-2 circle">
+                            <div class="lbtn-img img1">
+                                <img src="~/assets/images/icons/banner-aliment-icon-1.png"
+                                     class="rounded float-start" alt="banner-aliment-icon">
+                            </div>
+                        </dt>
+                        <dd class="col-lg-10 col-sm-10 col-10">
+                            <h3 class="title">Uğurlarımız</h3>
+                            <span>Məzunların siyahısı</span>
+                        </dd>
+                    </dl>
+                </a>
+                <a asp-area="" asp-controller="Course" asp-action="Index">
+                    <dl class="row bg-white linkbutton lbtn-3">
+                        <dt class="col-lg-2 col-sm-2 col-2 circle">
+                            <div class="lbtn-img img3">
+                                <img src="~/assets/images/icons/banner-aliment-icon-3.png"
+                                     class="rounded float-start" alt="banner-aliment-icon">
+                            </div>
+                        </dt>
+                        <dd class="col-lg-10 col-sm-10 col-10">
+                            <h3 class="title">@Model.Students.Count</h3>
+                            <span>Tələbələrimiz</span>
+                        </dd>
+                    </dl>
+                </a>
+            </div>
+            <div class=" col-lg-6 col-md-12 intro  ml-5 ">
+                <h2 class="headerBlue"> Haqqımızda</h2>
+                <h1 class="header">@Model.Abouts.FirstOrDefault().Title</h1>
+                <p class=" intro3 ">
+                    @Html.Raw(Model.Abouts.FirstOrDefault().Content != null && Model.Abouts.FirstOrDefault().Content.Length > 150 ? Model.Abouts.FirstOrDefault().Content.Substring(0, 150) + "..." : Model.Abouts.FirstOrDefault().Content)
+                </p>
+                <ul class="fa-ul m-0">
+                    @foreach (var advice in Model.Advices)
+                    {
+                        <li class=" mt-2">
+                            <i class="fa fa-check-circle"></i>@Html.Raw(advice.Content != null && advice.Content.Length > 150 ? advice.Content.Substring(0, 150) + "..." : advice.Content)
+                        </li>
+
+                    }
+                </ul>
+                <div class="intro_buttons mt-2">
+                    <a asp-area="" asp-controller="About" asp-action="Index" class="button btn-1">Explore more</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--!--!--section companies--!--!--!-->
+<section id="companies" class="sectionCompanies">
+    <div class="container forBackground">
+        <div class="row">
+            <div class="col-lg-12 sliderCompanies owl-carousel owl-theme">
+                @foreach (var companie in Model.Partners)
+                {
+                    <div class="slide_item ">
+                        <img src="~/Uploads/@companie.Image" alt="brand">
+                    </div>
+                }
+
+            </div>
+            <div class="col-lg-12 sliderBackground"></div>
+        </div>
+    </div>
+</section>
+<!--!--!--section courses--!--!--!-->
+<section id="courses" class="section-courses mt-5">
+    <div class="container ">
+        <div class="row">
+            <div class="col-lg-9 col-md-8 col-sm-12  mt-5">
+                <h2 class="headerBlue">Kurslarımız</h2>
+                <h1 class="header">Sənə uyğun olan kursu araşdır</h1>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-12 mt-5 pt-5">
+                <a asp-area="" asp-controller="Course" asp-action="Index" class="button btn-1">view all course</a>
+            </div>
+            <div class="col-lg-12">
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    @foreach (var course in Model.Courses.OrderByDescending(c => c.CreatedDate).Take(6))
+                    {
+                        <div class="col-lg-4 col-md-6 col-sm-12">
+                            <div class="card card-home">
+                                <div class="img-section">
+                                    @if (course.MainImage != "")
+                                    {
+                                        <a asp-controller="course" asp-action="coursedetails" asp-route-id="@course.Id">
+                                            <img src="~/Uploads/@course.MainImage" class="card-img-top" alt="course-1.jpg">
+                                            @foreach (var item in course.CourseCategoryToCourses)
+                                            {
+                                                <button asp-controller="course" asp-action="index" asp-route-catId="@item.CourseCategoryId" class="btn card-btn cbtn-2">@Html.Raw(item.CourseCategory.Name != null && item.CourseCategory.Name.Length > 20 ? item.CourseCategory.Name.Substring(0, 20) + "..." : item.CourseCategory.Name)</button>
+                                            }
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <a asp-controller="course" asp-action="coursedetails" asp-route-id="@course.Id">
+                                            <img src="~/assets/images/portfolio/course-1.jpg" class="card-img-top" alt="course-1.jpg">
+                                            @foreach (var item in course.CourseCategoryToCourses)
+                                            {
+                                                <button asp-controller="course" asp-action="index" asp-route-catId="@item.CourseCategoryId" class="btn card-btn cbtn-2"> @Html.Raw(item.CourseCategory.Name != null && item.CourseCategory.Name.Length > 20 ? item.CourseCategory.Name.Substring(0, 20) + "..." : item.CourseCategory.Name)</button>
+                                            }
+                                        </a>
+                                    }
+                                </div>
+                                <div class="card-body p-2">
+                                    <h3 class="card-title" href="#">
+                                        <a asp-controller="course" asp-action="coursedetails" asp-route-id="@course.Id"> @course.Title </a>
+                                    </h3>
+                                    <div class=" row teacher-course d-flex  ">
+                                        <div class="col-lg-8 col-sm-8  teacher">
+
+                                            @if (@course.Instructor.MainImage != "")
+                                            {
+                                                <a asp-controller="course" asp-action="coursedetails" asp-route-id="@course.Id">
+                                                    <img src="~/Uploads/@course.Instructor.MainImage" alt="">
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                <a asp-controller="course" asp-action="coursedetails" asp-route-id="@course.Id">
+                                                    <img src="~/assets/images/instructors/course-instructor-img.jpg" alt="">
+                                                </a>
+                                            }
+                                            <p class="users pt-2">@course.Instructor.Name @course.Instructor.Surname</p>
+
+                                        </div>
+                                        <div class=" col-lg-4 col-sm-4 teacher-star justify-content-end pt-2 d-flex ">
+                                            <a id="rating_value" class="d-flex align-items-center" asp-controller="instructor" asp-action="instructordetails" asp-route-id="@course.Instructor.Id">
+                                                <form action="">
+                                                    <input class="star star-5" id="star-5" data-id="5" type="radio" name="star" />
+                                                    <label class="star star-5" for="star-5" style="color: #ff5219 !important"></label>
+                                                </form>
+                                                @{
+                                                    if (course.Instructor.InstructorRaitings.Count > 0)
+                                                    {
+                                                        var rval2 = course.Instructor.InstructorRaitings;
+                                                        var fiveS = 0;
+                                                        var fourS = 0;
+                                                        var threeS = 0;
+                                                        var twoS = 0;
+                                                        var oneS = 0;
+                                                        for (var rs = 0; rs < rval2.Count; rs++)
+                                                        {
+
+
+                                                            for (var str = 0; str < rval2.Count; str++)
+                                                            {
+                                                                if (rval2[str].Star == 5)
+                                                                {
+                                                                    fiveS++;
+                                                                }
+                                                                else if (rval2[str].Star == 4)
+                                                                {
+                                                                    fourS++;
+                                                                }
+                                                                else if (rval2[str].Star == 3)
+                                                                {
+                                                                    threeS++;
+                                                                }
+                                                                else if (rval2[str].Star == 2)
+                                                                {
+                                                                    twoS++;
+                                                                }
+                                                                else if (rval2[str].Star == 1)
+                                                                {
+                                                                    oneS++;
+                                                                }
+                                                            }
+
+                                                        }
+
+                                                        decimal sum = (fiveS * 5) + (fourS * 4) + (threeS * 3) + (twoS * 2) + (oneS * 1);
+                                                        decimal rSum = fiveS + fourS + threeS + twoS + oneS;
+                                                        var sumRsum = Math.Round((sum / rSum), 1, MidpointRounding.ToEven);
+
+                                                        if (sumRsum != 0)
+                                                        {
+                                                            @("("+ sumRsum.ToString("F1")+")");
+                                                        }
+                                                        else
+                                                        {
+                                                            @("(0.0)");
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        @("(0.0)");
+                                                    }
+                                                }
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row course-counts pt-2">
+                                        <div class="col-lg-6 col-sm-6 course-pricing">
+                                            <i class="bi bi-currency-dollar"></i>
+                                            <p class="dollar">@course.NewPrice</p>
+                                        </div>
+                                        <div class="col-lg-6 col-sm-6 course-admin d-flex justify-content-end">
+                                            <i class="bi bi-person-circle"></i>
+                                            <span class="all-counts">@course.Students.Count</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!--!--!--section events--!--!--!-->
+<section id="events" class="section-events bg-light bg-gradient mt-5 mb-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 left-event">
+                <img src="~/Uploads/@Model.Settings.EventImage" alt="video illustration" class="img-fluid justify-content-left">
+                <a href="#" type="text/javascript" class="glightbox">
+                    <span>
+                        <i class="fab fa-google-play"></i>
+                        <p class="smalword">Bizi izlə!</p>
+                    </span>
+                    <span class="border-animation border-animation--border-1"></span>
+                    <span class="border-animation border-animation--border-2"></span>
+                </a>
+            </div>
+            <div class="col-lg-6  right-event ">
+                <h2 class="headerBlue"> Tədbirlərimiz </h2>
+                <h1 class="header">Qarşıdan gələn tədbirlərimizə qoşulun</h1>
+                @foreach (var even in Model.Events)
+                {
+                    <div class="row right-event-box bg-white d-flex p-4 mb-4">
+                        <div class="col-lg-3 right-event-date d-flex flex-column justify-content-center">
+                            <div class="event-date pb-0">
+                                <p class="content">@even.CreatedDate.ToString("dd")</p>
+                            </div>
+                            <div class="event-year">
+                                <p class="content" style="text-transform: capitalize;">@even.CreatedDate.ToString("MMMM yyyy")</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-9 event-content d-flex flex-column justify-content-center">
+                            <div class="col-lg-12 content-date  d-flex pb-0 mb-0">
+                                <div class="row">
+                                    <p class="col-lg-6 content">@even.WorkTime</p>
+                                    <p class="col-lg-6 content">@even.Address</p>
+                                </div>
+
+                            </div>
+                            <div class="col-lg-12  link-event">
+                                <a asp-controller="event" asp-action="eventdetails" asp-route-id="@even.Id">
+                                    <h3 class="title">@even.Title</h3>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+<!--!--!--section pricing--!--!--!-->
+<section id="pricing" class="section-pricing">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="headerBlue">Satış cədvəli</h2>
+                <h1 class="header">Xüsusi endirimli kurslar</h1>
+            </div>
+            <div class="col-lg-12 mt-5">
+                <div class="pricing-body">
+                    <div class="row">
+                        @foreach (var pric in Model.Pricings)
+                        {
+                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                <div class="pricing-body-content p-4">
+                                    <div class="pricing-body-content-header">
+                                        <h3 class="title">@pric.Title</h3>
+                                        <p class="content">@pric.SupTitle</p>
+                                    </div>
+                                    <div class="pricing-body-content-price pr-0">
+                                        <p class="content">
+                                            <i class="bi bi-currency-dollar"></i><span>@pric.Price</span>
+                                            <sub>/ @pric.Period</sub>
+                                        </p>
+                                    </div>
+                                    <div class="pricing-body-content-list">
+                                        <ul>
+                                            <li>
+                                                <i class="fa fa-check" aria-hidden="true"></i>
+                                                @pric.Metod
+                                            </li>
+                                            <li>
+                                                <i class="fa fa-check" aria-hidden="true"></i>
+                                                @pric.Place
+                                            </li>
+                                            <li>
+                                                <i class="fa fa-check" aria-hidden="true"></i>
+                                                @pric.MentorTime
+                                            </li>
+                                            <li>
+                                                <i class="fa fa-check" aria-hidden="true"></i>
+                                                @pric.Type
+                                            </li>
+                                            <li>
+                                                <i class="fa fa-check" aria-hidden="true"></i>
+                                                @pric.Support
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <a asp-controller="pricing" asp-action="index" asp-route-id="@pric.Id" class="button btn-1">Seçim et</a>
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+<!--!--!--section feature--!--!--!-->
+<section id="features" class="section-feature">
+    <div class="container feature-all">
+        <div class="row">
+            <div class="col-lg-6 col-md-12 featute-left">
+                <h2 class="headerBlue"> Əsas Xüsusiyyətlər</h2>
+                <h1 class="header">Məqsədimiz</h1>
+                @foreach (var featur in Model.Features)
+                {
+                    <div class="right-featute-box text-white d-flex p-4 mb-4 ">
+                        <div class="right-featute-image d-flex flex-column justify-content-center align-items-center bg-colors1">
+                            <img src="~/Uploads/@featur.Image" alt="feature-icon">
+                        </div>
+
+                        <div class="featute-content d-flex flex-column justify-content-center ">
+                            <h3 class="title">@featur.Title</h3>
+                            <p class="content">@featur.SubTitle</p>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="col-lg-6 col-md-12 featute-right"
+                 style="background-image: url(Uploads/@Model.Settings.FeatureImage );">
+            </div>
+        </div>
+    </div>
+</section>
+<!--!--!--section instructors--!--!--!-->
+<section id="instructors" class="section-instructors">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="headerBlue"> Müəllimlərimiz</h2>
+                <h1 class="header">Bizim ən yaxşı müəllimlərimiz </h1>
+            </div>
+            <div class=" sliderInstructors owl-carousel owl-theme">
+                @foreach (var instruct in Model.Instructors.OrderByDescending(o => o.CreatedDate).Take(4))
+                {
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-12 card-instructors_item" data-aos="fade-up" data-aos-once="true"
+                         data-aos-duration="1000" data-aos-delay="0">
+                        <div class="card-instructors">
+                            <div class="expert-img">
+                                @if (instruct.MainImage != "")
+                                {
+                                    <a asp-controller="instructor" asp-action="instructordetails" asp-route-id="@instruct.Id">
+                                        <img src="~/Uploads/@instruct.MainImage" alt="">
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a asp-controller="instructor" asp-action="instructordetails" asp-route-id="@instruct.Id">
+                                        <img class="card-img-top p-2" src="~/assets/images/instructors/instructor-2.jpg" alt="instructor">
+                                    </a>
+                                }
+                                <ul class="socials d-flex justify-content-center">
+                                    @foreach (var inssosial in instruct.InstructorToSocials)
+                                    {
+                                        <li><a href="@inssosial.InstructorSocial.Link" class="instructorSosials"><i class="@inssosial.InstructorSocial.Icon"></i></a></li>
+                                    }
+                                </ul>
+                            </div>
+                            <div class="card-body">
+                                <a asp-controller="instructor" asp-action="instructordetails" asp-route-id="@instruct.Id">
+                                    <h3 class="card-title">@(instruct.Name!= null? instruct.Name:"") @(instruct.Surname!= null? instruct.Surname : "")</h3>
+                                </a>
+                                <span class="card-text">@(instruct.Position!= null? instruct.Position : "") </span>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+</section>
+<!--!--!--section testimonial--!--!--!-->
+@await Component.InvokeAsync("VcFeedback")
+<!--!--!--section blog--!--!--!-->
+<section id="blogs" class="section-blogs mt-5 mb-5 ">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 header-blog">
+                <h2 class="headerBlue">İKT Xəbərləri</h2>
+                <h1 class="header">Dünyadan və bizdən xəbərlər</h1>
+            </div>
+            <div class="col-lg-12">
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    @foreach (var blog in Model.Blogs)
+                    {
+                        <div class="col-lg-4 col-md-6 col-sm-12 ">
+                            <div class="card card-blogs">
+                                <div class="img-section">
+                                    @if (blog.MainImage != "")
+                                    {
+                                        <a asp-controller="blog" asp-action="blogdetails" asp-route-id="@blog.Id">
+                                            <img src="~/Uploads/@blog.MainImage" alt="" style="width: 100%;">
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <a asp-controller="blog" asp-action="blogdetails" asp-route-id="@blog.Id">
+                                            <img src="~/assets/images/portfolio/blog-big-img-1.jpg" alt="" style="width: 100%;">
+                                        </a>
+                                    }
+                                </div>
+                                <div class="card-body p-2">
+                                    <h3 class="card-title">
+                                        <a asp-controller="blog" asp-action="blogdetails" asp-route-id="@blog.Id"> @Html.Raw(blog.Title != null && blog.Title.Length > 30 ? blog.Title.Substring(0, 30) + "..." : blog.Title) </a>
+                                    </h3>
+                                </div>
+                                <hr>
+                                <div class="row blogs-date-comments pt-2">
+                                    <div class="col-lg-6  blogs-date d-flex justify-content-end">
+                                        <i class="fas fa-calendar-alt"></i>
+                                        <p class="date" style="text-transform: capitalize;">@blog.CreatedDate.ToString("MMMM dd, yyyy")</p>
+                                    </div>
+                                    <div class="col-lg-6  blogs-comments">
+                                        <i class="fas fa-comment"></i>
+                                        <span class="all-comment">@blog.Comments.Count Comments</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+

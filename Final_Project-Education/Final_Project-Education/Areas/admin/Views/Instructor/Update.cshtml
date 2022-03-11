@@ -1,0 +1,90 @@
+﻿@model Instructor
+
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Areas/admin/Views/Shared/_Layout.cshtml";
+}
+
+<!-- partial -->
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="card-title">Update Instructor Page</h1>
+                        <form class="forms-sample" asp-area="admin" asp-controller="Instructor" asp-action="Update" method="post" enctype="multipart/form-data">
+                            <div asp-validation-summary="All" class="text-danger"></div>
+
+                            <div class="form-group">
+                                <label asp-for="@Model.MainImageFile" class="form-label">MainImageFile</label>
+                                <img src="~/Uploads/@Model.MainImage" alt="Alternate Text" width="100" height="100" />
+                                <input class="form-control" asp-for="@Model.MainImageFile">
+                                <span asp-validation-for="@Model.MainImageFile" class="text-danger"></span>
+                            </div>
+                          
+                            <div class="form-group">
+                                <label asp-for="@Model.Name" class="form-label">Name</label>
+                                <input class="form-control" asp-for="@Model.Name">
+                                <span asp-validation-for="@Model.Name" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.Surname" class="form-label">Surname</label>
+                                <input class="form-control" asp-for="@Model.Surname">
+                                <span asp-validation-for="@Model.Surname" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.Position" class="form-label">Position</label>
+                                <input class="form-control" asp-for="@Model.Position">
+                                <span asp-validation-for="@Model.Position" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.Title" class="form-label">Title</label>
+                                <input class="form-control" asp-for="@Model.Title">
+                                <span asp-validation-for="@Model.Title" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.Content" class="form-label">Content</label>
+                                <textarea id="editor" class="form-control" asp-for="@Model.Content" rows="12"></textarea>
+                                <span asp-validation-for="@Model.Content" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.CreatedDate" class="form-label">CreatedDate</label>
+                                <input class="form-control" asp-for="@Model.CreatedDate">
+                                <span asp-validation-for="@Model.CreatedDate" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.InstructorToSocialsId" class="form-label">Tags</label>
+                                <select class="form-control mb-3 selectTwo" aria-label="Default select example" multiple="multiple" asp-for="@Model.InstructorToSocialsId">
+                                    @foreach (var item in ViewBag.InstructorSocial)
+                                    {
+                                        <option value="@item.Id">@item.Name</option>
+                                    }
+                                </select>
+                                <span asp-validation-for="@Model.InstructorToSocialsId" class="text-danger"></span>
+                            </div>
+                            <input class="form-control" type="hidden" asp-for="@Model.Id">
+                            <input type="hidden" asp-for="@Model.MainImage" />
+                            <input type="hidden" asp-for="@Model.Id" />
+                            <input type="hidden" asp-for="@Model.CreatedDate" />
+                            <input type="hidden" asp-for="@Model.MainImage" />
+                            <button type="submit" class="btn btn-primary mr-2">Update</button>
+                            <a asp-area="admin" asp-controller="Instructor" asp-action="Index" class="btn btn-light">Back to list</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- main-panel ends -->
+
+
+
+
+
+
+
+
+
+

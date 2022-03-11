@@ -1,0 +1,445 @@
+﻿@model VmBlog
+
+@{
+    ViewData["Title"] = "Blog Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!--!--!--section Intro--!--!--!-->
+<partial name="_BannerPartial" model="Model.Banner" />
+<!--!--!--section categories--!--!--!-->
+<section id="breadcrum" class="section-breadcrum">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4"></div>
+            <div class="col-lg-4 d-flex flex-wrap-nowrap justify-content-center">
+                <div class="banner-breadcrum ">
+                    <ul class="d-flex justify-content-center">
+                        <li><a asp-area="" asp-controller="Home" asp-action="Index" title="Home">Home</a></li>
+                        <li><i class="fa fa-angle-right" aria-hidden="true"></i></li>
+                        <li><a asp-area="" asp-controller="Blog" asp-action="Index" title="Courses">IKT Xəbərləri</a></li>
+                        <li><i class="fa fa-angle-right" aria-hidden="true"></i></li>
+                        <li><a asp-controller="course" asp-action="courseDetails" title="Courses Detail">Ətraflı</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-4"></div>
+        </div>
+    </div>
+</section>
+<!--!--!--section blogs lists--!--!--!-->
+<section id="blog-page" class="blog-list pt-5 .bg-gradient-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-12 blog-list-boxs">
+                <div class="card blog-card">
+                    <div class="card-header p-0">
+                        <div class="blog-card-img">
+                            <img src="~/Uploads/@Model.BlogDetails.MainImage" alt="" style="width:100%">
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="blog-card-user-infrom">
+                            <div class="blog-card-user-box">
+                                <div class="blog-card-icon">
+                                    s
+                                    <img src="~/assets/images/icons/author.png" alt="">
+                                </div>
+                                <div class="blog-card-name">
+                                    <a href="#">
+                                        <p class="content">John Doe</p>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="blog-card-user-box">
+                                <div class="blog-card-icon">
+                                    <i class="fas fa-calendar-alt"></i>
+                                </div>
+                                <div class="blog-card-date">
+                                    <a href="#">
+                                        <p class="content" style="text-transform: capitalize;">@Model.BlogDetails.CreatedDate.ToString("MMMM d, yyyy")</p>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="blog-card-user-box">
+                                <div class="blog-card-icon">
+                                    <img src="~/assets/images/icons/comment.png" alt="">
+                                </div>
+                                <div class="blog-card-comment">
+                                    <a href="#">
+                                        <p class="content">@Model.BlogDetails.Comments.Count Comments</p>
+                                    </a>
+
+                                </div>
+                            </div>
+                        </div>
+                        <h3 class="card-detail-title">
+                            @Model.BlogDetails.Title
+                        </h3>
+                        <div>@Html.Raw(Model.BlogDetails.Content)</div>
+                        <hr>
+                        <div class="blog-detail-share">
+                            <div class="row">
+                                <div class="col-lg-1 pt-2">
+                                    <p class="content">Tag:</p>
+                                </div>
+                                <div class="col-lg-8">
+                                    <div class="sidebar-tag-content">
+                                        <ul class="tag-categories">
+                                            @foreach (var item in Model.BlogDetails.TagToBlogs)
+                                            {
+                                                <li> <a asp-controller="blog" asp-action="index" asp-route-tagId="@item.TagId" rel="tag">@item.Tag.Name</a></li>
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 pt-2">
+                                    <div class="blog-detail-sosials-all">
+                                        <div class="blog-detail-sosials">
+                                            @foreach (var item in Model.Socials)
+                                            {
+                                                <a href="@item.Link" title="@item.Name"><i class="@item.Icon" aria-hidden="true"></i></a>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="header-blog">
+                    <h2 class="headerBlue">İKT xəbərləri</h2>
+                    <h1 class="header">Dünyadan və bizdən xəbərlər</h1>
+                </div>
+                <div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
+                    @foreach (var blog in Model.Blogs.OrderByDescending(o => o.CreatedDate).Take(2))
+                    {
+                        <div class="col-lg-6 col-md-12">
+                            <div class="card card-blogs">
+                                @if (blog.MainImage != "")
+                                {
+                                    <a asp-controller="blog" asp-action="blogdetails" asp-route-id="@blog.Id">
+                                        <img src="~/Uploads/@blog.MainImage" alt="" style="width: 100%;">
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a asp-controller="blog" asp-action="blogdetails" asp-route-id="@blog.Id">
+                                        <img src="~/assets/images/portfolio/blog-big-img-1.jpg" alt="" style="width: 100%;">
+                                    </a>
+                                }
+                                <div class="card-body p-2">
+                                    <a asp-controller="blog" asp-action="blogdetails" asp-route-id="@blog.Id"> @blog.Title </a>
+                                </div>
+                                <hr>
+                                <div class="row blogs-date-comments pt-2">
+                                    <div class="col-lg-6  col-sm-16 col-6 blogs-date d-flex justify-content-end">
+                                        <i class="fas fa-calendar-alt"></i>
+                                        <p class="date" style="text-transform: capitalize;">@blog.CreatedDate.ToString("MMMM dd, yyyy")</p>
+                                    </div>
+                                    <div class="col-lg-6  col-sm-16 col-6 blogs-comments">
+                                        <i class="fas fa-comment"></i>
+                                        <span class="all-comment">@blog.Comments.Count Comments</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="blog-detail-comment">
+                    <div class="blog-detail-comment-header">
+                        <h2 class="headerBlue">Our Review</h2>
+                        <h1 class="header">Comments</h1>
+                    </div>
+                    <div class="row">
+                        @{
+                            foreach (var blogC in @Model.BlogDetails.Comments)
+                            {
+                                if (blogC.ParentCommentId == null)
+                                {
+                                    <div class="col-lg-12">
+                                        <div class="blog-detail-customer-comment mb-3 d-flex">
+                                            <div class="customer-comment-img">
+                                                @if (blogC.Commenter.MainImage != "")
+                                                {
+                                                    <img class="comment-img" src="~/assets/images/instructors/instructor-5.jpg" alt="customer">
+                                                }
+                                                else
+                                                {
+                                                    <img class="comment-img" src="~/assets/images/testimoials/comment-1.jpg" alt="customer">
+                                                }
+                                            </div>
+
+                                            <div class="customer-comment-content ms-5">
+                                                <h3 class="title">@blogC.Commenter.Name</h3>
+                                                <span>
+                                                    @{
+                                                        var date = (DateTime.Now - blogC.CreatedDate);
+                                                        if (date.Days == 0)
+                                                        {
+                                                            if (date.Hours == 0)
+                                                            {
+                                                                if (date.Minutes == 0)
+                                                                {
+                                                                    @(date.Seconds) @(" seconds before")
+                                                                }
+                                                                else
+                                                                {
+                                                                    @(date.Minutes) @(" minutes before")
+                                                                }
+                                                            }
+                                                            else
+                                                            {
+                                                                @(date.Hours) @(" hours before")
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            @(date.Days) @(" days before")
+                                                        }
+                                                    }
+                                                </span>
+                                                <p class="content">
+                                                    @blogC.Text
+                                                </p>
+                                                <button class="button reply-btn replybtn-1" id="open-reply">
+                                                    <span>Reply to @blogC.Commenter.Name</span><i class="fa fa-reply" aria-hidden="true"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        @{
+                                            foreach (var blogP in @Model.BlogDetails.Comments)
+                                            {
+                                                if (blogP.ParentCommentId == blogC.Id)
+                                                {
+                                                    <div class="blog-detail-customer-comment mb-3 d-flex">
+                                                        <div class="customer-comment-img">
+
+                                                            @if (blogP.Commenter.MainImage != "")
+                                                            {
+                                                                <img class="comment-img" src="~/Uploads/@blogP.Commenter.MainImage" alt="">
+                                                            }
+                                                            else
+                                                            {
+                                                                <img class="comment-img" src="~/assets/images/instructors/instructor-5.jpg" alt="customer">
+                                                            }
+                                                        </div>
+                                                        <div class="customer-comment-content ms-5">
+                                                            <h3 class="title">@blogP.Commenter.Name</h3>
+                                                            <span>
+                                                                @{
+                                                                    var date2 = (DateTime.Now - blogP.CreatedDate);
+                                                                    if (date2.Days == 0)
+                                                                    {
+                                                                        if (date2.Hours == 0)
+                                                                        {
+                                                                            if (date2.Minutes == 0)
+                                                                            {
+                                                                                @(date2.Seconds) @(" seconds before")
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                @(date2.Minutes) @(" minutes before")
+                                                                            }
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            @(date2.Hours) @(" hours before")
+                                                                        }
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        @(date2.Days) @(" days before")
+                                                                    }
+                                                                }
+                                                            </span>
+                                                            <p class="content">
+                                                                @blogP.Text
+                                                            </p>
+                                                            <button class="button reply-btn replybtn-1" id="open-reply">
+                                                                <i class="fa fa-reply" aria-hidden="true"></i><span>Reply to @blogP.Commenter.Name</span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            }
+                                        }
+                                    </div>
+                                    <div class="blog-detail-reply" id="reply-hidden" style="display:none">
+                                        <div class="row">
+                                            <!-- Review Comment -->
+                                            <form id="add-comment" class="leave-reply-form" asp-controller="Blog" asp-action="CommentsAll" method="post">
+                                                <fieldset>
+                                                    <div class="form-group-firstline d-flex">
+                                                        <div class="col-lg-4">
+                                                            <div class="form-group">
+                                                                <input asp-for="@Model.Commenter.Name" placeholder="Name"
+                                                                       class="form-control form-control-alternative">
+                                                                <div asp-validation-summary="All"></div>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-4">
+                                                            <div class="form-group">
+                                                                <input asp-for="@Model.Commenter.Surname" placeholder="Last Name"
+                                                                       class="form-control form-control-alternative">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-4">
+                                                            <div class="form-group">
+                                                                <input asp-for="@Model.Commenter.Email" placeholder="Email Address"
+                                                                       class="form-control form-control-alternative">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <textarea asp-for="@Model.Commenter.Content" class="form-control form-control-alternative"
+                                                                  placeholder="Comment" id="exampleFormControlTextarea1"></textarea>
+                                                    </div>
+                                                    <input hidden asp-for="@Model.Commenter.CourseId" value="@Model.BlogDetails.Id" />
+                                                </fieldset>
+
+                                                <button type="submit" class="button btn-1 reply">Post Now to @blogC.Commenter.Name</button>
+                                                <div class="clearfix"></div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        }
+                        <div class="blog-detail-reply">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="blog-detail-reply-header">
+                                        <h2 class="headerBlue">Şərh yazın</h2>
+                                        <h1 class="header">Rəy</h1>
+                                    </div>
+                                </div>
+                                <!-- Review Comment -->
+                                <form id="add-comment" class="leave-reply-form" asp-controller="Blog" asp-action="CommentsAll" method="post">
+                                    <fieldset>
+                                        <div class="form-group-firstline d-flex">
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    <input asp-for="@Model.Commenter.Name" placeholder="First Name"
+                                                           class="form-control form-control-alternative">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    <input asp-for="@Model.Commenter.Surname" placeholder="Last Name"
+                                                           class="form-control form-control-alternative">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    <input asp-for="@Model.Commenter.Email" placeholder="Email Address"
+                                                           class="form-control form-control-alternative">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <input asp-for="@Model.Commenter.Subject" placeholder="Subject"
+                                                       class="form-control form-control-alternative">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <textarea asp-for="@Model.Commenter.Content" class="form-control form-control-alternative"
+                                                      placeholder="Comment" id="exampleFormControlTextarea1"></textarea>
+                                        </div>
+                                        <input hidden asp-for="@Model.Commenter.BlogId" value="@Model.BlogDetails.Id" />
+                                    </fieldset>
+                                    <button type="submit" class="button btn-1 reply">Post Now</button>
+                                    <div class="clearfix"></div>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-12 blog-all-tags">
+                <div class="sidebar-search mb-4">
+                    <div class="sidebar-form">
+                        <form method="post" action="#">
+                            <div class="form-group search-group">
+                                <input type="search" name="search-field" value="" placeholder="Search..." required>
+                                <button type="submit"><span class="icon fa fa-search"></span></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="sidebar-categories sidebar-background ">
+                    <div class="sidebar-title">
+                        <h3 class="title">Kateqoriyalar</h3>
+                    </div>
+                    <div class="sidebar-content">
+                        <ul class="sidebar-list">
+                            @foreach (var item in Model.BlogCategories)
+                            {
+                                <li>
+                                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                    <a asp-controller="blog" asp-action="index" asp-route-catId="@item.Id">
+
+                                        @item.Name (@item.Blogs.Count)
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+                <div class="sidebar-related-all sidebar-background p-4">
+                    <div class="sidebar-title">
+                        <h3 class="title">Qısa xülasələr</h3>
+                    </div>
+                    @foreach (var rigthblog in Model.Blogs.OrderByDescending(o => o.CreatedDate).Take(4))
+                    {
+                        <div class="sidebar-related d-flex mb-3 row">
+                            <div class="sidebar-related-img col-lg-4">
+                                @if (rigthblog.MainImage != "")
+                                {
+                                    <a asp-controller="blog" asp-action="blogdetails" asp-route-id="@rigthblog.Id">
+                                        <img src="~/Uploads/@rigthblog.MainImage" alt="" style="height:100%">
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a asp-controller="blog" asp-action="blogdetails" asp-route-id="@rigthblog.Id">
+                                        <img src="~/assets/images/portfolio/related-event-img-1.jpg" alt="recent-event-img" style="height:100%">
+                                    </a>}
+
+                            </div>
+                            <div class="sidebar-related-content col-lg-8">
+                                <a asp-controller="blog" asp-action="blogdetails" asp-route-id="@rigthblog.Id">
+                                    @Html.Raw(rigthblog.Title != null && rigthblog.Title.Length > 50 ? rigthblog.Title.Substring(0, 50) + "..." : rigthblog.Title)
+                                </a>
+                                <div class="sidebar-related-footer relaited-blog d-flex">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    <p class="content" style="text-transform: capitalize;">@rigthblog.CreatedDate.ToString("MMMM dd, yyyy")</p>
+                                </div>
+
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="sidebar-tag-all sidebar-background mt-4">
+                    <div class="sidebar-title">
+                        <h3 class="title">Etiketlər</h3>
+                    </div>
+                    <div class="sidebar-tag-content">
+                        <ul class="tag-categories">
+                            @foreach (var item in Model.Tags)
+                            {
+                                <a asp-controller="blog" asp-action="index" asp-route-tagId="@item.Id" class="btn card-btn cbtn-2">@item.Name</a>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

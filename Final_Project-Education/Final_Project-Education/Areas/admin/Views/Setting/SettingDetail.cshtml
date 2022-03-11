@@ -1,0 +1,86 @@
+﻿@model Setting
+
+@{
+    ViewData["Title"] = "SettingDetail";
+    Layout = "~/Areas/admin/Views/Shared/_Layout.cshtml";
+}
+
+
+
+@{
+    if (TempData["SettingError"] != null)
+    {
+        <div class="alert alert-success">
+            <p class="text-danger">@(TempData["SettingError"] as string)</p>
+        </div>
+        TempData["SettingError"] = null;
+    }
+}
+
+
+<!-- partial -->
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                      
+                        <div class="form-group">
+                            <h1 class="card-title" style="color:darkred">LogoFile</h1>
+                            <img src="~/Uploads/@Model.Logo" alt="Alternate Text" style="object-fit:cover" />
+                        </div>
+                        <div class="form-group">
+                            <h1 class="card-title" style="color:darkred">BannerImageFile</h1>
+                            <img src="~/Uploads/@Model.BannerImage" alt="Alternate Text" style="object-fit:cover" />
+                        </div>
+                        <div class="form-group">
+                            <h1 class="card-title" style="color:darkred">BannerImageBackFile</h1>
+                            <img src="~/Uploads/@Model.BannerImageBack" alt="Alternate Text" style="object-fit:cover" />
+                        </div>
+                        <div class="form-group">
+                            <h1 class="card-title" style="color:darkred">EventImageFile</h1>
+                            <img src="~/Uploads/@Model.EventImage" alt="Alternate Text" style="object-fit:cover" />
+                        </div>
+                        <div class="form-group">
+                            <h1 class="card-title" style="color:darkred">FeatureImageFile</h1>
+                            <img src="~/Uploads/@Model.FeatureImage" alt="Alternate Text" style="object-fit:cover" />
+                        </div>
+                        <div class="form-group">
+                            <h1 class="card-title" style="color:darkred">Address</h1>
+                            <p class="form-label">@Model.Address</p>
+                        </div>
+                        <div class="form-group">
+                            <h1 class="card-title" style="color:darkred">LocationOnMap</h1>
+                            <iframe class="form-label" src="@Model.LocationOnMap" width="400" height="200" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                        </div>
+                        <div class="form-group">
+                            <h1 class="card-title" style="color:darkred">Phone</h1>
+                            <p class="form-label">@Model.Phone</p>
+                        </div>
+                        <div class="form-group">
+                            <h1 class="card-title" style="color:darkred">Email</h1>
+                            <p class="form-label">@Html.Raw(Model.Email)</p>
+                        </div>
+                        <div class="form-group">
+                            <h1 class="card-title" style="color:darkred">ContactInfo</h1>
+                            <p class="form-label">@Html.Raw(Model.ContactInfo)</p>
+                        </div>
+                        <div class="form-group">
+                            <h1 class="card-title" style="color:darkred">Title</h1>
+                            <p class="form-label">@Model.Title</p>
+                        </div>
+                        <div class="form-group">
+                            <h1 class="card-title" style="color:darkred">SupTitle</h1>
+                            <p class="form-label">@Model.SupTitle</p>
+                        </div>
+                        <a class="btn btn-success" asp-area="admin" asp-controller="Setting" asp-action="Update" asp-route-id="@Model.Id">Update</a>
+                        <a class="btn btn-danger" asp-area="admin" asp-controller="Setting" asp-action="Delete" asp-route-id="@Model.Id" onclick="return confirm('Silinməsinə əminsənmi?')">Delete</a>
+                        <a class="btn btn-secondary" asp-area="admin" asp-controller="Setting" asp-action="Index"> Back to list</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
